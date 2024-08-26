@@ -1,0 +1,15 @@
+import { View, Text } from 'react-native';
+import { {{pascalCase name}}Controller } from './{{lowerCase name}}.controller';
+
+type {{pascalCase name}}ViewProps = {
+  controller: {{pascalCase name}}Controller;
+};
+
+export function {{pascalCase name}}View({ controller }: {{pascalCase name}}ViewProps){
+  const screenName = "{{pascalCase name}}";
+  return (
+    <View>
+      <Text>{screenName}</Text>
+    </View>
+  );
+}

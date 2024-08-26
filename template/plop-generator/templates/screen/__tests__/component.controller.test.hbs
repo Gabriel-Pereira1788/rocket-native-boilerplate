@@ -1,0 +1,10 @@
+import { renderHook } from '@test';
+import { use{{pascalCase name}}Controller } from '../{{lowerCase name}}.controller';
+
+describe('{{pascalCase name}}Controller', () => {
+  it('should be render hook correctly', () => {
+    const { result } = renderHook(() => use{{pascalCase name}}Controller());
+
+    expect(true).toBeTruthy();
+  });
+});

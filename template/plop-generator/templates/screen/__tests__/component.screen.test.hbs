@@ -1,0 +1,18 @@
+import { renderScreen, screen } from '@test';
+import { {{pascalCase name}}Screen } from '../{{lowerCase name}}.screen';
+
+function customRenderScreen(){
+    renderScreen(<{{pascalCase name}}Screen />)
+
+    return {
+        element: screen.getByTestId('')
+    }
+}
+
+describe("{{pascalCase name}}Screen", () => {
+    it("should be render component correctly", () => {
+        const {} = customRenderScreen();
+
+        expect(true).toBeTruthy();
+    });
+})

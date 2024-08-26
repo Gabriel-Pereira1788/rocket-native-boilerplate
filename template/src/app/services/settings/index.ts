@@ -1,1 +1,1 @@
-export * from './settingsService'
+export * from './settingsService';

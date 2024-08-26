@@ -1,0 +1,21 @@
+import { render, screen } from '@test';
+import { {{pascalCase name}}Controller } from '../{{lowerCase name}}.controller';
+import { {{pascalCase name}}View } from '../{{lowerCase name}}.view';
+
+const controller: {{pascalCase name}}Controller = {};
+
+function customRender(){
+    render(<{{pascalCase name}}View controller={controller} />)
+
+    return {
+        element: screen.getByTestId('')
+    }
+}
+
+describe("{{pascalCase name}}View",() => {
+    it("should berender component correctly", () => {
+        const {} = customRender();
+
+        expect(true).toBeTruthy();
+    });
+})

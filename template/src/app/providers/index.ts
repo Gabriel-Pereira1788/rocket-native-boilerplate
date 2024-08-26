@@ -1,1 +1,1 @@
-export * from './RootProvider'
+export * from './RootProvider';

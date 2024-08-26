@@ -1,6 +1,7 @@
 import React, {useRef} from 'react';
+import {Animated, StyleSheet} from 'react-native';
+
 import BootSplash from 'react-native-bootsplash';
-import {Animated, Easing, StyleSheet} from 'react-native';
 
 type Props = {
   onInitializeApp: () => Promise<void>;
@@ -8,12 +9,7 @@ type Props = {
 
 export function AnimatedSplashScreen({onInitializeApp}: Props) {
   const scale = useRef(new Animated.Value(1));
-  const spinValue = useRef(new Animated.Value(0));
-
-  const spin = spinValue.current.interpolate({
-    inputRange: [0, 1],
-    outputRange: ['0deg', '360deg'],
-  });
+  const translateY = useRef(new Animated.Value(0));
 
   const {container, logo} = BootSplash.useHideAnimation({
     manifest: require('../../../assets/bootsplash/manifest.json'),
@@ -24,33 +20,42 @@ export function AnimatedSplashScreen({onInitializeApp}: Props) {
   });
 
   function runAnimation() {
+    Animated.loop(
+      Animated.sequence([
+        Animated.timing(translateY.current, {
+          useNativeDriver: false,
+          toValue: 25,
+          duration: 2000,
+        }),
+        Animated.timing(translateY.current, {
+          useNativeDriver: false,
+          toValue: -25,
+          duration: 2000,
+        }),
+      ]),
+    ).start();
+
     Animated.timing(scale.current, {
       useNativeDriver: false,
-      toValue: 1.5,
+      toValue: 0.7,
       duration: 200,
     }).start(({finished}) => {
       if (finished) {
         onInitializeApp();
       }
     });
-    Animated.loop(
-      Animated.timing(spinValue.current, {
-        useNativeDriver: true,
-        easing: Easing.linear,
-        toValue: 1,
-        duration: 3000,
-      }),
-    ).start();
   }
 
   return (
     <Animated.View {...container}>
-      <Animated.View
-        style={[styles.logoContainer, {transform: [{rotate: spin}]}]}>
+      <Animated.View style={[styles.logoContainer]}>
         <Animated.Image
           {...logo}
           style={{
-            transform: [{scale: scale.current}],
+            transform: [
+              {scale: scale.current},
+              {translateY: translateY.current},
+            ],
           }}
         />
       </Animated.View>

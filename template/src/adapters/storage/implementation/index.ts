@@ -1,1 +1,1 @@
-export * from './mmkv-impl'
+export * from './mmkv-impl';
