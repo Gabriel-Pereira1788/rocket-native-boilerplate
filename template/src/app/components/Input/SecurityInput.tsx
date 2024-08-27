@@ -1,13 +1,13 @@
-import {useState} from 'react';
+import { useState } from 'react';
 
-import {IconTextInput} from './IconTextInput';
-import {InputProps} from './Input';
+import { IconTextInput } from './IconTextInput';
+import { InputProps } from './Input';
 
 export type SecurityInputProps = {} & Omit<
   InputProps,
   'LeftElement' | 'RightElement'
 >;
-export function SecurityInput({...inputProps}: SecurityInputProps) {
+export function SecurityInput({ ...inputProps }: SecurityInputProps) {
   const [showPassword, setShowPassword] = useState(false);
 
   function toggleShowPassword() {

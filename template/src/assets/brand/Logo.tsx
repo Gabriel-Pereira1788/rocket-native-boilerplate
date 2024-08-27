@@ -1,6 +1,6 @@
 import React from 'react';
 
-import {Path, Rect, Svg} from 'react-native-svg';
+import { Path, Rect, Svg } from 'react-native-svg';
 
 type Props = {
   width?: number;
@@ -8,7 +8,7 @@ type Props = {
   color?: string;
 };
 
-export function Logo({width = 250, height = 350, color = '#000'}: Props) {
+export function Logo({ width = 250, height = 350, color = '#000' }: Props) {
   return (
     <Svg
       viewBox="1.7103699445724487 1.4981969594955444 322.1723937988281 582.2988891601562"

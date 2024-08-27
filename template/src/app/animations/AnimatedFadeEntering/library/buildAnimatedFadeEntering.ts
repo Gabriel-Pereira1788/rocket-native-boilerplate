@@ -9,7 +9,7 @@ import Animated, {
   FadeOutUp,
 } from 'react-native-reanimated';
 
-import {AnimatedFadeEnteringProps} from '../AnimatedFadeEntering';
+import { AnimatedFadeEnteringProps } from '../AnimatedFadeEntering';
 
 type AnimatedConfig = {
   entering: React.ComponentProps<Animated.View>['entering'];

@@ -5,7 +5,7 @@ import EyeClosed from 'phosphor-react-native/src/icons/EyeClosed';
 import EyeSlash from 'phosphor-react-native/src/icons/EyeSlash';
 import Lock from 'phosphor-react-native/src/icons/Lock';
 
-import {IconProps} from '../Icon';
+import { IconProps } from '../Icon';
 
 export const mappedIcons = {
   email: Email,

@@ -1,7 +1,8 @@
 import { act, fireEvent, render, renderHook } from '@test';
 
-import { LoginController, useLoginController } from '../login.controller';
 import { FormInput } from '@components';
+
+import { LoginController, useLoginController } from '../login.controller';
 
 const mockNavigate = jest.fn();
 jest.mock('@react-navigation/native', () => ({

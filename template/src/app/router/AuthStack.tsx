@@ -1,4 +1,5 @@
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
+
 import { LoginScreen, SignUpScreen, WelcomeScreen } from '@screens';
 
 export type AppStackParamList = {

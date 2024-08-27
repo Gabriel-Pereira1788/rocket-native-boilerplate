@@ -1,4 +1,4 @@
-import {InputStatus} from '../types';
+import { InputStatus } from '../types';
 export function buildStatusStyles(status: InputStatus) {
   switch (status) {
     case 'error':

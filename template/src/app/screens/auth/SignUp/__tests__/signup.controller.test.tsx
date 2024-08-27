@@ -1,4 +1,5 @@
 import { renderHook } from '@test';
+
 import { useSignUpController } from '../signup.controller';
 
 describe('SignUpController', () => {

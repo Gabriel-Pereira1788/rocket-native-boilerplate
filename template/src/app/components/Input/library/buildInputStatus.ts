@@ -1,4 +1,4 @@
-import {InputProps} from '../Input';
+import { InputProps } from '../Input';
 
 export function buildInputStatus(props: InputProps) {
   if (props.errorMessage) {

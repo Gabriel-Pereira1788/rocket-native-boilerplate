@@ -1,11 +1,17 @@
 import React from 'react';
 
-import {GestureHandlerRootView} from 'react-native-gesture-handler';
+import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
+import { GestureHandlerRootView } from 'react-native-gesture-handler';
 
-export function RootProvider({children}: React.PropsWithChildren) {
+type RootProviderProps = {
+  queryClient: QueryClient;
+} & React.PropsWithChildren;
+export function RootProvider({ children, queryClient }: RootProviderProps) {
   return (
-    <GestureHandlerRootView style={{flex: 1}}>
-      {children}
-    </GestureHandlerRootView>
+    <QueryClientProvider client={queryClient}>
+      <GestureHandlerRootView style={{ flex: 1 }}>
+        {children}
+      </GestureHandlerRootView>
+    </QueryClientProvider>
   );
 }

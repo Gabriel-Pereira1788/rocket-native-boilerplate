@@ -5,15 +5,16 @@
  * @format
  */
 
-import React, {useState} from 'react';
-import {SafeAreaView, StatusBar, useColorScheme} from 'react-native';
+import React, { useState } from 'react';
+import { SafeAreaView, StatusBar, useColorScheme } from 'react-native';
 
-import {Colors} from 'react-native/Libraries/NewAppScreen';
+import { queryClient } from '@infra';
+import { Colors } from 'react-native/Libraries/NewAppScreen';
 
-import {RootProvider} from './providers';
-import {Routes} from './router';
-import {settingsService} from './services';
-import {AnimatedSplashScreen} from './splash-screen/AnimatedSplashScreen';
+import { RootProvider } from './providers';
+import { Routes } from './router';
+import { Global, settingsService } from './services';
+import { AnimatedSplashScreen } from './splash-screen/AnimatedSplashScreen';
 
 function App(): React.JSX.Element {
   const isDarkMode = useColorScheme() === 'dark';
@@ -40,8 +41,9 @@ function App(): React.JSX.Element {
         barStyle={isDarkMode ? 'light-content' : 'dark-content'}
         backgroundColor={backgroundStyle.backgroundColor}
       />
-      <RootProvider>
+      <RootProvider queryClient={queryClient}>
         <Routes />
+        <Global />
       </RootProvider>
     </SafeAreaView>
   );

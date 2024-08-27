@@ -1,5 +1,5 @@
-import React, {useRef} from 'react';
-import {Animated, StyleSheet} from 'react-native';
+import React, { useRef } from 'react';
+import { Animated, StyleSheet } from 'react-native';
 
 import BootSplash from 'react-native-bootsplash';
 
@@ -7,11 +7,11 @@ type Props = {
   onInitializeApp: () => Promise<void>;
 };
 
-export function AnimatedSplashScreen({onInitializeApp}: Props) {
+export function AnimatedSplashScreen({ onInitializeApp }: Props) {
   const scale = useRef(new Animated.Value(1));
   const translateY = useRef(new Animated.Value(0));
 
-  const {container, logo} = BootSplash.useHideAnimation({
+  const { container, logo } = BootSplash.useHideAnimation({
     manifest: require('../../../assets/bootsplash/manifest.json'),
     logo: require('../../../assets/bootsplash/logo.png'),
     statusBarTranslucent: true,
@@ -39,7 +39,7 @@ export function AnimatedSplashScreen({onInitializeApp}: Props) {
       useNativeDriver: false,
       toValue: 0.7,
       duration: 200,
-    }).start(({finished}) => {
+    }).start(({ finished }) => {
       if (finished) {
         onInitializeApp();
       }
@@ -53,8 +53,8 @@ export function AnimatedSplashScreen({onInitializeApp}: Props) {
           {...logo}
           style={{
             transform: [
-              {scale: scale.current},
-              {translateY: translateY.current},
+              { scale: scale.current },
+              { translateY: translateY.current },
             ],
           }}
         />

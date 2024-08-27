@@ -1,4 +1,4 @@
-import {useEffect} from 'react';
+import { useEffect } from 'react';
 
 import Animated, {
   useSharedValue,
@@ -9,7 +9,7 @@ import Animated, {
 
 type AnimatedUpDownProps = {} & React.PropsWithChildren;
 
-export function AnimatedUpDown({children}: AnimatedUpDownProps) {
+export function AnimatedUpDown({ children }: AnimatedUpDownProps) {
   const translateY = useSharedValue(0);
 
   function runAnimation() {
@@ -18,7 +18,7 @@ export function AnimatedUpDown({children}: AnimatedUpDownProps) {
         withTiming(-5, {
           duration: 2000,
         }),
-        withTiming(0, {duration: 2000}),
+        withTiming(0, { duration: 2000 }),
       ),
       -1,
     );
@@ -28,7 +28,7 @@ export function AnimatedUpDown({children}: AnimatedUpDownProps) {
     runAnimation();
   }, []);
   return (
-    <Animated.View style={{transform: [{translateY}]}}>
+    <Animated.View style={{ transform: [{ translateY }] }}>
       {children}
     </Animated.View>
   );

@@ -6,6 +6,8 @@
       "@animations": ["src/app/animations"],
       "@screens": ["src/app/screens"],
       "@test": ["src/test"],
+      "@infra": ["src/infra"],
+      "@domain": ["src/domain"],
       "@components": ["src/app/components"],
       "@providers": ["src/app/providers"],
       "@assets": ["src/assets"],

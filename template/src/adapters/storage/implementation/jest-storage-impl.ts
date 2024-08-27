@@ -1,4 +1,4 @@
-import {StorageImpl} from '../types';
+import { StorageImpl } from '../types';
 
 export const jestStorage: StorageImpl = {
   setItem: jest.fn(),

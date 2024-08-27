@@ -1,18 +1,18 @@
-import {Text, View} from 'react-native';
+import { Text, View } from 'react-native';
 
-import {AnimatedFadeEntrance, AnimatedUpDown} from '@animations';
-import {Logo} from '@assets';
-import {ScreenLayout} from '@shared';
+import { AnimatedFadeEntrance, AnimatedUpDown } from '@animations';
+import { Logo } from '@assets';
+import { ScreenLayout } from '@shared';
 
-import {Button} from '@components';
+import { Button } from '@components';
 
-import {WelcomeScreenController} from './welcome.controller';
+import { WelcomeScreenController } from './welcome.controller';
 
 type WelcomeViewProps = {
   controller: WelcomeScreenController;
 };
 
-export function WelcomeView({controller}: WelcomeViewProps) {
+export function WelcomeView({ controller }: WelcomeViewProps) {
   return (
     <ScreenLayout>
       <View className="px-4 gap-8  items-center justify-center mb-16">

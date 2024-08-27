@@ -1,4 +1,4 @@
-import {ButtonProps} from '../Button';
+import { ButtonProps } from '../Button';
 
 export function buildVariant(variant: ButtonProps['variant']) {
   switch (variant) {

@@ -1,6 +1,6 @@
-import {MMKV} from 'react-native-mmkv';
+import { MMKV } from 'react-native-mmkv';
 
-import {StorageImpl} from '../types';
+import { StorageImpl } from '../types';
 
 const mmkv = new MMKV();
 function setItem<T>(key?: string, value?: T) {

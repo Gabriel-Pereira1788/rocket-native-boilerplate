@@ -1,9 +1,9 @@
 import React from 'react';
-import {TouchableOpacity} from 'react-native';
+import { TouchableOpacity } from 'react-native';
 
-import {IconWeight} from 'phosphor-react-native';
+import { IconWeight } from 'phosphor-react-native';
 
-import {buildIcon, mappedIcons} from './library/buildIcon';
+import { buildIcon, mappedIcons } from './library/buildIcon';
 export type IconProps = {
   iconName: keyof typeof mappedIcons;
   size?: number;

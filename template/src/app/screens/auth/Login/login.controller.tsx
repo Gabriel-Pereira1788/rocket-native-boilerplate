@@ -1,11 +1,22 @@
+import { useAuthSignIn } from '@domain';
 import { zodResolver } from '@hookform/resolvers/zod';
+import { useNavigation } from '@react-navigation/native';
 import { useForm } from 'react-hook-form';
 
 import { loginSchema, LoginSchema } from './library';
-import { useNavigation } from '@react-navigation/native';
 
 export function useLoginController() {
   const navigation = useNavigation();
+
+  const { signIn, loading } = useAuthSignIn({
+    onSuccess: () => {
+      console.log('SUCCESS');
+    },
+    onError: () => {
+      console.log('ERROR');
+    },
+  });
+
   const { control, handleSubmit } = useForm<LoginSchema>({
     defaultValues: {
       email: '',
@@ -19,14 +30,15 @@ export function useLoginController() {
     navigation.navigate('SignUpScreen');
   }
 
-  async function onSubmit() {
-    console.log('SUBMIT');
+  async function onSubmit(data: LoginSchema) {
+    await signIn(data.email, data.password);
   }
 
   return {
     redirectToSignUpScreen,
     onSubmit: handleSubmit(onSubmit),
     controlForm: control,
+    loadingSubmit: loading,
   };
 }
 

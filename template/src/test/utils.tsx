@@ -1,22 +1,36 @@
 import { RootProvider } from '@providers';
 import { NavigationContainer } from '@react-navigation/native';
+import { QueryClient, QueryClientConfig } from '@tanstack/react-query';
 import {
   RenderHookOptions,
   RenderOptions,
   render,
   renderHook,
 } from '@testing-library/react-native';
+const queryClientConfig: QueryClientConfig = {
+  defaultOptions: {
+    queries: {
+      retry: false,
+    },
+    mutations: {
+      retry: false,
+    },
+  },
+};
 
 function wrapAllProviders() {
+  const queryClient = new QueryClient(queryClientConfig);
+
   return ({ children }: React.PropsWithChildren) => {
-    return <RootProvider>{children}</RootProvider>;
+    return <RootProvider queryClient={queryClient}>{children}</RootProvider>;
   };
 }
 
 function wrapScreenProviders() {
   return ({ children }: React.PropsWithChildren) => {
+    const queryClient = new QueryClient(queryClientConfig);
     return (
-      <RootProvider>
+      <RootProvider queryClient={queryClient}>
         <NavigationContainer>{children}</NavigationContainer>
       </RootProvider>
     );

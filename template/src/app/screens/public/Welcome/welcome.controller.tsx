@@ -1,14 +1,13 @@
-import {useNavigation} from '@react-navigation/native';
+import { useNavigation } from '@react-navigation/native';
 
 export function useWelcomeScreenController() {
   const navigation = useNavigation();
   function redirectToLoginScreen() {
     navigation.navigate('LoginScreen');
-    console.log('CALL-1');
   }
 
   function redirectToSignUpScreen() {
-    console.log('CALL-2');
+    navigation.navigate('SignUpScreen');
   }
 
   return {

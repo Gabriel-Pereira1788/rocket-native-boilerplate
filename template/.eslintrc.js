@@ -1,7 +1,7 @@
 module.exports = {
   root: true,
-  extends: '@react-native-community',
-  plugins: ['import', 'plugin:prettier/recommended'],
+  extends: ['@react-native-community', 'plugin:prettier/recommended'],
+  plugins: ['import'],
   overrides: [
     {
       files: ['*.ts', '*.tsx'],

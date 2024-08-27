@@ -1,5 +1,5 @@
-import {mmkvImpl} from './implementation';
-import {StorageImpl} from './types';
+import { mmkvImpl } from './implementation';
+import { StorageImpl } from './types';
 
 export let storage: StorageImpl = mmkvImpl;
 
