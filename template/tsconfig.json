@@ -8,8 +8,10 @@
       "@test": ["src/test"],
       "@infra": ["src/infra"],
       "@domain": ["src/domain"],
+      "@services": ["src/app/services"],
       "@components": ["src/app/components"],
       "@providers": ["src/app/providers"],
+      "@helpers": ["src/app/helpers"],
       "@assets": ["src/assets"],
       "@shared": ["src/app/shared"]
     }

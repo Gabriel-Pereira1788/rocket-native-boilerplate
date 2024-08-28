@@ -15,6 +15,8 @@ module.exports = {
           '@infra': './src/infra',
           '@domain': './src/domain',
           '@screens': './src/app/screens',
+          '@helpers': './src/app/helpers',
+          '@services': './src/app/services',
           '@components': './src/app/components',
           '@assets': './src/assets',
           '@shared': './src/app/shared',
