@@ -7,4 +7,9 @@ async function signIn(userCredentials: Pick<User, 'email' | 'password'>) {
   return authAdapter.toUser(userData);
 }
 
-export const authService = { signIn };
+async function signUp(data: Pick<User, 'email' | 'password' | 'username'>) {
+  const userData = await authApi.signUp(data);
+  return authAdapter.toUser(userData);
+}
+
+export const authService = { signIn, signUp };

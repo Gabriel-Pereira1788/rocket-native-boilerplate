@@ -1,16 +1,21 @@
 import React from 'react';
-import { TextInput, View, TextInputProps, Text } from 'react-native';
+import {
+  TextInput,
+  View,
+  TextInputProps as RNTextInputProps,
+  Text,
+} from 'react-native';
 
 import { buildInputStatus, buildStatusStyles } from './library';
 
-export type InputProps = {
+export type TextInputProps = {
   LeftElement?: JSX.Element;
   RightElement?: JSX.Element;
   errorMessage?: string;
   disabled?: boolean;
-} & TextInputProps;
+} & RNTextInputProps;
 
-export function Input(props: InputProps) {
+export function Input(props: TextInputProps) {
   const { LeftElement, RightElement, errorMessage, ...textInputProps } = props;
   const _status = buildInputStatus(props);
   const _statusStyles = buildStatusStyles(_status);

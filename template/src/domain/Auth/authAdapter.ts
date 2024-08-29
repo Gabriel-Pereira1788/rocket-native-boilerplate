@@ -4,7 +4,7 @@ function toUser(userApi: UserApi): User {
   return {
     id: userApi.id,
     email: userApi.email,
-    name: userApi.name,
+    username: userApi.username,
     password: userApi.password,
   };
 }

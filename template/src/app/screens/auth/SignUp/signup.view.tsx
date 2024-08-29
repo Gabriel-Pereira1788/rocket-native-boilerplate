@@ -1,7 +1,7 @@
 import { AnimatedFadeEntrance } from '@animations';
 import { AuthScreenLayout } from '@shared';
 
-import { FormInput } from '@components';
+import { FormInput, FormInputPassword } from '@components';
 
 import { SignUpController } from './signup.controller';
 
@@ -13,14 +13,23 @@ export function SignUpView({ controller }: SignUpViewProps) {
   return (
     <AuthScreenLayout
       title="Create Your Account"
-      buttonsProps={[{ text: 'Sign Up', onPress: () => {} }]}
+      buttonsProps={[
+        {
+          text: 'Sign Up',
+          onPress: controller.onSubmit,
+          loading: controller.loading,
+        },
+      ]}
       actionPrompt={{
         message: 'Already Have An Account?',
         actionText: 'Sign In',
-        action: () => {},
+        action: controller.redirectToLoginScreen,
       }}>
       <AnimatedFadeEntrance entrance="up">
         <FormInput
+          leftIconProps={{
+            iconName: 'user',
+          }}
           control={controller.controlForm}
           name="username"
           placeholder="Name"
@@ -28,13 +37,16 @@ export function SignUpView({ controller }: SignUpViewProps) {
       </AnimatedFadeEntrance>
       <AnimatedFadeEntrance entrance="down">
         <FormInput
+          leftIconProps={{
+            iconName: 'email',
+          }}
           control={controller.controlForm}
           name="email"
           placeholder="Email"
         />
       </AnimatedFadeEntrance>
       <AnimatedFadeEntrance entrance="down">
-        <FormInput
+        <FormInputPassword
           control={controller.controlForm}
           name="password"
           placeholder="Password"

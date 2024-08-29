@@ -3,7 +3,7 @@ import { UserApi } from './authTypes';
 const mockUsersAuthenticated: UserApi[] = [
   {
     id: new Date().getMilliseconds(),
-    name: 'John doe',
+    username: 'John doe',
     email: 'johndoe@email.com',
     password: 'johndoe123',
     createdDate: new Date(),
@@ -29,6 +29,29 @@ async function signIn({
     }, 4000);
   });
 }
+
+async function signUp({
+  email,
+  username,
+  password,
+}: Pick<UserApi, 'email' | 'password' | 'username'>) {
+  return new Promise<UserApi>(resolve => {
+    const newUser = {
+      id: new Date().getMilliseconds(),
+      email,
+      username,
+      password,
+      createdDate: new Date(),
+      updatedDate: new Date(),
+    };
+    mockUsersAuthenticated.push(newUser);
+
+    setTimeout(() => {
+      resolve(newUser);
+    }, 3000);
+  });
+}
 export const authApi = {
   signIn,
+  signUp,
 };

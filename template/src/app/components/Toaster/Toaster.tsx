@@ -60,6 +60,7 @@ export const Toaster = React.forwardRef<ToasterRefProps, {}>((props, ref) => {
       {toasterConfig && (
         <AnimatedFadeEntrance entrance="down">
           <View
+            testID="toast"
             onLayout={layout => {
               const _height = layout.nativeEvent.layout.height;
               setHeight(_height);

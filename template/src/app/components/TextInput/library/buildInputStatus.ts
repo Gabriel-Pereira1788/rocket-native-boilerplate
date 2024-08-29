@@ -1,6 +1,6 @@
-import { InputProps } from '../Input';
+import { TextInputProps } from '../TextInput';
 
-export function buildInputStatus(props: InputProps) {
+export function buildInputStatus(props: TextInputProps) {
   if (props.errorMessage) {
     return 'error';
   }

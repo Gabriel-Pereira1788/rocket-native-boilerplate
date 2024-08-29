@@ -2,10 +2,10 @@ import React from 'react';
 
 import { Controller, FieldValues, UseControllerProps } from 'react-hook-form';
 
-import { InputProps, SecurityInput } from '../Input';
+import { TextInputProps, SecurityInput } from '../TextInput';
 
 type FormInputPasswordProps = {} & Omit<
-  InputProps,
+  TextInputProps,
   'value' | 'error' | 'onChange' | 'onChangeText'
 >;
 

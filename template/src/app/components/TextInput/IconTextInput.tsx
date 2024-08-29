@@ -1,12 +1,12 @@
 import { IconPress } from '../Icon';
 import { Icon, IconProps } from '../Icon/Icon';
 
-import { Input, InputProps } from './Input';
+import { Input, TextInputProps } from './TextInput';
 
 export type IconTextInputProps = {
   leftIconProps?: Omit<IconProps, 'size'>;
   rightIconProps?: Omit<IconProps, 'size'> & { onPress?: () => void };
-} & InputProps;
+} & TextInputProps;
 
 export function IconTextInput({
   leftIconProps,

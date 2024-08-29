@@ -2,7 +2,7 @@ import React from 'react';
 
 import { Controller, FieldValues, UseControllerProps } from 'react-hook-form';
 
-import { IconTextInput, IconTextInputProps } from '../Input';
+import { IconTextInput, IconTextInputProps } from '../TextInput';
 
 type FormInputProps = {} & Omit<
   IconTextInputProps,

@@ -4,23 +4,22 @@ import { authService } from '../authService';
 import { User } from '../authTypes';
 import { useAuthMutation } from '../hooks';
 
-type SignInVariables = Pick<User, 'email' | 'password'>;
-export function useAuthSignIn({
+type SignUpVariables = Pick<User, 'email' | 'password' | 'username'>;
+export function useAuthSignUp({
   onSuccess,
   onError,
 }: ConfigMutation<User, Error>) {
   const { mutate, loading, isError, isSuccess } = useAuthMutation<
     User,
-    SignInVariables
+    SignUpVariables
   >({
-    mutationService: variables => authService.signIn(variables),
+    mutationService: variables => authService.signUp(variables),
     onSuccess,
     onError,
   });
 
   return {
-    signIn: async (email: string, password: string) =>
-      mutate({ email, password }),
+    signUp: async (variables: SignUpVariables) => mutate(variables),
     loading,
     isError,
     isSuccess,

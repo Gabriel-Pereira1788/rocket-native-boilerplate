@@ -5,6 +5,7 @@ import Eye from 'phosphor-react-native/src/icons/Eye';
 import EyeClosed from 'phosphor-react-native/src/icons/EyeClosed';
 import EyeSlash from 'phosphor-react-native/src/icons/EyeSlash';
 import Lock from 'phosphor-react-native/src/icons/Lock';
+import User from 'phosphor-react-native/src/icons/User';
 import Warning from 'phosphor-react-native/src/icons/Warning';
 import X from 'phosphor-react-native/src/icons/X';
 
@@ -19,6 +20,7 @@ export const mappedIcons = {
   arrowLeft: ArrowLeft,
   check: Check,
   warning: Warning,
+  user: User,
   x: X,
 };
 export function buildIcon(iconName: IconProps['iconName']) {

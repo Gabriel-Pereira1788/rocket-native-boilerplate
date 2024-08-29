@@ -7,6 +7,9 @@ import {
   render,
   renderHook,
 } from '@testing-library/react-native';
+import { SafeAreaProvider } from 'react-native-safe-area-context';
+
+import { Global } from '../app/services/global';
 const queryClientConfig: QueryClientConfig = {
   defaultOptions: {
     queries: {
@@ -22,7 +25,12 @@ function wrapAllProviders() {
   const queryClient = new QueryClient(queryClientConfig);
 
   return ({ children }: React.PropsWithChildren) => {
-    return <RootProvider queryClient={queryClient}>{children}</RootProvider>;
+    return (
+      <RootProvider queryClient={queryClient}>
+        <SafeAreaProvider style={{ flex: 1 }}>{children}</SafeAreaProvider>
+        <Global />
+      </RootProvider>
+    );
   };
 }
 
@@ -31,7 +39,10 @@ function wrapScreenProviders() {
     const queryClient = new QueryClient(queryClientConfig);
     return (
       <RootProvider queryClient={queryClient}>
-        <NavigationContainer>{children}</NavigationContainer>
+        <SafeAreaProvider style={{ flex: 1 }}>
+          <NavigationContainer>{children}</NavigationContainer>
+          <Global />
+        </SafeAreaProvider>
       </RootProvider>
     );
   };

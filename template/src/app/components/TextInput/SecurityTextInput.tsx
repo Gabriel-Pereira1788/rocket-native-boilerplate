@@ -1,10 +1,10 @@
 import { useState } from 'react';
 
 import { IconTextInput } from './IconTextInput';
-import { InputProps } from './Input';
+import { TextInputProps } from './TextInput';
 
 export type SecurityInputProps = {} & Omit<
-  InputProps,
+  TextInputProps,
   'LeftElement' | 'RightElement'
 >;
 export function SecurityInput({ ...inputProps }: SecurityInputProps) {

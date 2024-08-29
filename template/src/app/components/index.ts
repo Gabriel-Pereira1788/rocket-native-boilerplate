@@ -1,4 +1,4 @@
-export * from './Input';
+export * from './TextInput';
 export * from './Button/Button';
 export * from './Icon';
 export * from './FormInput';

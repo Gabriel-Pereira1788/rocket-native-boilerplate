@@ -5,11 +5,24 @@ import { FormInput } from '@components';
 import { LoginController, useLoginController } from '../login.controller';
 
 const mockNavigate = jest.fn();
+const mockSignIn = jest.fn();
+
 jest.mock('@react-navigation/native', () => ({
   useNavigation: () => ({
     navigate: mockNavigate,
   }),
 }));
+
+jest.mock('@domain', () => {
+  const originalModule = jest.requireActual('@domain');
+  return {
+    ...originalModule,
+    useAuthSignIn: () => ({
+      signIn: mockSignIn,
+      loading: false,
+    }),
+  };
+});
 
 function renderInputsForControl(controlForm: LoginController['controlForm']) {
   const emailRender = render(
@@ -30,12 +43,6 @@ function renderInputsForControl(controlForm: LoginController['controlForm']) {
 }
 
 describe('useLoginController', () => {
-  it('should be render hook correctly', () => {
-    const { result } = renderHook(() => useLoginController());
-
-    expect(true).toBeTruthy();
-  });
-
   it('should be run navigate function with SignUp parameter.', () => {
     const { result } = renderHook(() => useLoginController());
 
@@ -48,7 +55,7 @@ describe('useLoginController', () => {
     const { inputEmail, inputPassword } = renderInputsForControl(
       result.current.controlForm,
     );
-    const email = 'test1234emailcom';
+    const email = 'test1234@email.com';
     const password = 'test1234';
 
     act(() => {
@@ -60,9 +67,23 @@ describe('useLoginController', () => {
     expect(inputPassword.props.value).toEqual(password);
   });
 
-  it('should be dispatch submit function', () => {
+  it('should be dispatch submit function', async () => {
     const { result } = renderHook(() => useLoginController());
+    const { inputEmail, inputPassword } = renderInputsForControl(
+      result.current.controlForm,
+    );
+    const email = 'test@gmail.com';
+    const password = 'test1234';
 
-    expect(true).toBeTruthy();
+    act(() => {
+      fireEvent.changeText(inputEmail, email);
+      fireEvent.changeText(inputPassword, password);
+    });
+
+    await act(() => {
+      result.current.onSubmit();
+    });
+
+    expect(mockSignIn).toHaveBeenCalled();
   });
 });
