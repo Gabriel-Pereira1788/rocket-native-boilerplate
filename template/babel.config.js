@@ -12,6 +12,7 @@ module.exports = {
           '@animations': './src/app/animations',
           '@providers': './src/app/providers',
           '@test': './src/test',
+          '@router': './src/app/router',
           '@infra': './src/infra',
           '@domain': './src/domain',
           '@screens': './src/app/screens',

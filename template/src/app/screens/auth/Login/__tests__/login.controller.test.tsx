@@ -1,3 +1,4 @@
+import { SignInUseCase } from '@domain';
 import { act, fireEvent, render, renderHook } from '@test';
 
 import { FormInput } from '@components';
@@ -6,6 +7,12 @@ import { LoginController, useLoginController } from '../login.controller';
 
 const mockNavigate = jest.fn();
 const mockSignIn = jest.fn();
+const mockSignInUseCase: SignInUseCase = {
+  signIn: mockSignIn,
+  isError: false,
+  isSuccess: false,
+  loading: false,
+};
 
 jest.mock('@react-navigation/native', () => ({
   useNavigation: () => ({
@@ -44,14 +51,18 @@ function renderInputsForControl(controlForm: LoginController['controlForm']) {
 
 describe('useLoginController', () => {
   it('should be run navigate function with SignUp parameter.', () => {
-    const { result } = renderHook(() => useLoginController());
+    const { result } = renderHook(() =>
+      useLoginController({ signInUseCase: mockSignInUseCase }),
+    );
 
     result.current.redirectToSignUpScreen();
     expect(mockNavigate).toHaveBeenCalledWith('SignUpScreen');
   });
 
   it('should be render inputs and use controlForm.', () => {
-    const { result } = renderHook(() => useLoginController());
+    const { result } = renderHook(() =>
+      useLoginController({ signInUseCase: mockSignInUseCase }),
+    );
     const { inputEmail, inputPassword } = renderInputsForControl(
       result.current.controlForm,
     );
@@ -68,7 +79,9 @@ describe('useLoginController', () => {
   });
 
   it('should be dispatch submit function', async () => {
-    const { result } = renderHook(() => useLoginController());
+    const { result } = renderHook(() =>
+      useLoginController({ signInUseCase: mockSignInUseCase }),
+    );
     const { inputEmail, inputPassword } = renderInputsForControl(
       result.current.controlForm,
     );

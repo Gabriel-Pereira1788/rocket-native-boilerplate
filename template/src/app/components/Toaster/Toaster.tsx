@@ -19,7 +19,7 @@ export type ToasterRefProps = {
   hide: () => void;
 };
 
-export const Toaster = React.forwardRef<ToasterRefProps, {}>((props, ref) => {
+export const Toaster = React.forwardRef<ToasterRefProps, {}>((_, ref) => {
   const [height, setHeight] = useState(0);
   const [toasterConfig, setToasterConfig] = useState<ToasterConfig | null>(
     null,
@@ -42,8 +42,8 @@ export const Toaster = React.forwardRef<ToasterRefProps, {}>((props, ref) => {
     }
   }, [toasterConfig]);
 
-  const iconName = buildIconName(toasterConfig?.status);
-  const color = buildColor(toasterConfig?.status);
+  const _iconName = buildIconName(toasterConfig?.status);
+  const _color = buildColor(toasterConfig?.status);
 
   function show(_toaster: ToasterConfig) {
     setToasterConfig(_toaster);
@@ -69,11 +69,11 @@ export const Toaster = React.forwardRef<ToasterRefProps, {}>((props, ref) => {
             style={{ gap: 15 }}>
             <View
               className="absolute  w-full h-full rounded-lg "
-              style={{ zIndex: 0, bottom: 5, backgroundColor: color }}
+              style={{ zIndex: 0, bottom: 5, backgroundColor: _color }}
             />
             <View className="w-full h-full bg-slate-100 py-4 px-4 flex-row rounded-lg shadow-lg">
               <View className="flex-1">
-                <Icon iconName={iconName!} size={20} color={color} />
+                <Icon iconName={_iconName!} size={20} color={_color} />
               </View>
 
               <View

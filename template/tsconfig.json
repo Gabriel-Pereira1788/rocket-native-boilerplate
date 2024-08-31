@@ -13,6 +13,7 @@
       "@providers": ["src/app/providers"],
       "@helpers": ["src/app/helpers"],
       "@assets": ["src/assets"],
+      "@router": ["src/app/router"],
       "@shared": ["src/app/shared"]
     }
   }

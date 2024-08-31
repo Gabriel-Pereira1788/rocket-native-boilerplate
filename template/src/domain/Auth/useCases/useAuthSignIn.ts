@@ -26,3 +26,5 @@ export function useAuthSignIn({
     isSuccess,
   };
 }
+
+export type SignInUseCase = ReturnType<typeof useAuthSignIn>;

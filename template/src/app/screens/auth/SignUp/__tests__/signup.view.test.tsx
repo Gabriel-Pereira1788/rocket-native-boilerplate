@@ -15,7 +15,7 @@ jest.mock('@react-navigation/native', () => {
 });
 
 const mockController: Omit<SignUpController, 'controlForm'> = {
-  redirectToSignInScreen: jest.fn(),
+  redirectToLoginScreen: jest.fn(),
   loading: false,
   onSubmit: jest.fn(),
 };

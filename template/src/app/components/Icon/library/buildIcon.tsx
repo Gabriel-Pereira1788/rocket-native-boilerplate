@@ -4,7 +4,9 @@ import Email from 'phosphor-react-native/src/icons/Envelope';
 import Eye from 'phosphor-react-native/src/icons/Eye';
 import EyeClosed from 'phosphor-react-native/src/icons/EyeClosed';
 import EyeSlash from 'phosphor-react-native/src/icons/EyeSlash';
+import House from 'phosphor-react-native/src/icons/HouseSimple';
 import Lock from 'phosphor-react-native/src/icons/Lock';
+import MagnifyingGlass from 'phosphor-react-native/src/icons/MagnifyingGlass';
 import User from 'phosphor-react-native/src/icons/User';
 import Warning from 'phosphor-react-native/src/icons/Warning';
 import X from 'phosphor-react-native/src/icons/X';
@@ -21,6 +23,8 @@ export const mappedIcons = {
   check: Check,
   warning: Warning,
   user: User,
+  house: House,
+  magnifyingGlass: MagnifyingGlass,
   x: X,
 };
 export function buildIcon(iconName: IconProps['iconName']) {

@@ -6,7 +6,7 @@
  */
 
 import React, { useState } from 'react';
-import { SafeAreaView, StatusBar, useColorScheme } from 'react-native';
+import { SafeAreaView, StatusBar, useColorScheme, View } from 'react-native';
 
 import { queryClient } from '@infra';
 import { Colors } from 'react-native/Libraries/NewAppScreen';
@@ -36,7 +36,7 @@ function App(): React.JSX.Element {
     );
   }
   return (
-    <SafeAreaView className="flex-1 bg-slate-50">
+    <View className="flex-1 bg-slate-50">
       <StatusBar
         barStyle={isDarkMode ? 'light-content' : 'dark-content'}
         backgroundColor={backgroundStyle.backgroundColor}
@@ -45,7 +45,7 @@ function App(): React.JSX.Element {
         <Routes />
         <Global />
       </RootProvider>
-    </SafeAreaView>
+    </View>
   );
 }
 

@@ -1,3 +1,4 @@
+import { SignUpUseCase } from '@domain';
 import { act, fireEvent, render, renderHook } from '@test';
 
 import { FormInput } from '@components';
@@ -6,22 +7,17 @@ import { SignUpController, useSignUpController } from '../signup.controller';
 
 const mockNavigate = jest.fn();
 const mockSignUp = jest.fn();
+const mockSignUpUseCase: SignUpUseCase = {
+  signUp: mockSignUp,
+  loading: false,
+  isSuccess: false,
+  isError: false,
+};
 jest.mock('@react-navigation/native', () => ({
   useNavigation: () => ({
     navigate: mockNavigate,
   }),
 }));
-
-jest.mock('@domain', () => {
-  const originalModule = jest.requireActual('@domain');
-  return {
-    ...originalModule,
-    useAuthSignUp: () => ({
-      signUp: mockSignUp,
-      loading: false,
-    }),
-  };
-});
 
 function renderInputsForControl(controlForm: SignUpController['controlForm']) {
   const emailRender = render(
@@ -48,14 +44,22 @@ function renderInputsForControl(controlForm: SignUpController['controlForm']) {
 }
 describe('SignUpController', () => {
   it('should be run navigate function with Login parameter.', () => {
-    const { result } = renderHook(() => useSignUpController());
+    const { result } = renderHook(() =>
+      useSignUpController({
+        signUpUseCase: mockSignUpUseCase,
+      }),
+    );
 
     result.current.redirectToLoginScreen();
     expect(mockNavigate).toHaveBeenCalledWith('LoginScreen');
   });
 
   it('should be render inputs and use controlForm.', () => {
-    const { result } = renderHook(() => useSignUpController());
+    const { result } = renderHook(() =>
+      useSignUpController({
+        signUpUseCase: mockSignUpUseCase,
+      }),
+    );
     const { inputEmail, inputPassword, inputName } = renderInputsForControl(
       result.current.controlForm,
     );
@@ -71,11 +75,15 @@ describe('SignUpController', () => {
 
     expect(inputEmail.props.value).toEqual(email);
     expect(inputPassword.props.value).toEqual(password);
-    expect(inputEmail.props.value).toEqual(name);
+    expect(inputName.props.value).toEqual(name);
   });
 
   it('should be dispatch submit function', async () => {
-    const { result } = renderHook(() => useSignUpController());
+    const { result } = renderHook(() =>
+      useSignUpController({
+        signUpUseCase: mockSignUpUseCase,
+      }),
+    );
     const { inputEmail, inputPassword, inputName } = renderInputsForControl(
       result.current.controlForm,
     );

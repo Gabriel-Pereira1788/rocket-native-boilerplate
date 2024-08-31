@@ -2,18 +2,18 @@ import { createNativeStackNavigator } from '@react-navigation/native-stack';
 
 import { LoginScreen, SignUpScreen, WelcomeScreen } from '@screens';
 
-export type AppStackParamList = {
+export type AuthStackParamList = {
   WelcomeScreen: undefined;
   LoginScreen: undefined;
   SignUpScreen: undefined;
 };
 
-const Stack = createNativeStackNavigator<AppStackParamList>();
+const Stack = createNativeStackNavigator<AuthStackParamList>();
 
 export function AuthStack({
   initialRouteName = 'WelcomeScreen',
 }: {
-  initialRouteName: keyof AppStackParamList;
+  initialRouteName?: keyof AuthStackParamList;
 }) {
   return (
     <Stack.Navigator

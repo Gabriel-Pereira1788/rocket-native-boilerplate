@@ -1,25 +1,17 @@
-import { useAuthSignIn } from '@domain';
+import { SignInUseCase } from '@domain';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useNavigation } from '@react-navigation/native';
-import { toasterService } from '@services';
 import { useForm } from 'react-hook-form';
 
 import { loginSchema, LoginSchema } from './library';
 
-export function useLoginController() {
-  const navigation = useNavigation();
+type LoginControllerProps = {
+  signInUseCase: SignInUseCase;
+};
 
-  const { signIn, loading } = useAuthSignIn({
-    onSuccess: () => {
-      toasterService.success('Success', 'Welcome John doe!');
-    },
-    onError: () => {
-      toasterService.error(
-        'Invalid credentials',
-        'Verify your email or password and try again.',
-      );
-    },
-  });
+export function useLoginController({ signInUseCase }: LoginControllerProps) {
+  const { signIn, loading } = signInUseCase;
+  const navigation = useNavigation();
 
   const { control, handleSubmit } = useForm<LoginSchema>({
     defaultValues: {

@@ -1,4 +1,4 @@
-import { act, fireEvent, renderScreen, screen, waitFor } from '@test';
+import { act, fireEvent, renderScreen, screen } from '@test';
 
 import { AuthStack } from '../../../../router/AuthStack';
 

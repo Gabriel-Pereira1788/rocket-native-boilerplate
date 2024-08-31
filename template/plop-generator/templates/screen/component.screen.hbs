@@ -2,7 +2,7 @@ import { use{{pascalCase name}}Controller } from './{{lowerCase name}}.controlle
 import { {{pascalCase name}}View } from './{{lowerCase name}}.view';
 
 export function {{pascalCase name}}Screen() {
-  const controller = use{{pascalCase name}}Controller();
+  const controller = use{{pascalCase name}}Controller({});
 
   return <{{pascalCase name}}View controller={controller} />;
 }
