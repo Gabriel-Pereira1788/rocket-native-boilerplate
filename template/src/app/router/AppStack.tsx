@@ -1,10 +1,10 @@
 import { NavigatorScreenParams } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 
-import { AppTabNavigator, AppTabParamList } from './AppTabNavigator';
+import { AppDrawerNavigator, AppDrawerParamList } from './AppDrawerNavigator';
 
 export type AppStackParamList = {
-  AppTabNavigator: NavigatorScreenParams<AppTabParamList>;
+  AppDrawerStack: NavigatorScreenParams<AppDrawerParamList>;
 };
 
 const Stack = createNativeStackNavigator<AppStackParamList>();
@@ -15,8 +15,8 @@ export function AppStack() {
         headerShown: false,
         fullScreenGestureEnabled: true,
       }}
-      initialRouteName={'AppTabNavigator'}>
-      <Stack.Screen name="AppTabNavigator" component={AppTabNavigator} />
+      initialRouteName={'AppDrawerStack'}>
+      <Stack.Screen name="AppDrawerStack" component={AppDrawerNavigator} />
     </Stack.Navigator>
   );
 }

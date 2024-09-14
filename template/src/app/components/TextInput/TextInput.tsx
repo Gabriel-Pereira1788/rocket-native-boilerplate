@@ -6,6 +6,8 @@ import {
   Text,
 } from 'react-native';
 
+import { If } from '@helpers';
+
 import { buildInputStatus, buildStatusStyles } from './library';
 
 export type TextInputProps = {
@@ -27,7 +29,9 @@ export function Input(props: TextInputProps) {
           'w-full flex-row items-center justify-between px-3 h-16  rounded-xl shadow-lg ' +
           _statusStyles
         }>
-        {LeftElement && <View className="mr-4">{LeftElement}</View>}
+        <If condition={!!LeftElement}>
+          <View className="mr-4">{LeftElement}</View>
+        </If>
 
         <TextInput
           {...textInputProps}
@@ -35,16 +39,17 @@ export function Input(props: TextInputProps) {
           className="flex-1"
           autoCapitalize="none"
         />
-
-        {RightElement && <View>{RightElement}</View>}
+        <If condition={!!RightElement}>
+          <View>{RightElement}</View>
+        </If>
       </View>
-      {errorMessage && (
+      <If condition={!!errorMessage}>
         <View className="w-full pl-2">
           <Text className="font-semibold text-red-500 text-base">
             {errorMessage}
           </Text>
         </View>
-      )}
+      </If>
     </View>
   );
 }

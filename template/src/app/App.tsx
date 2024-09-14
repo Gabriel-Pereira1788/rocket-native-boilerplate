@@ -6,7 +6,7 @@
  */
 
 import React, { useState } from 'react';
-import { SafeAreaView, StatusBar, useColorScheme, View } from 'react-native';
+import { StatusBar, useColorScheme, View } from 'react-native';
 
 import { queryClient } from '@infra';
 import { Colors } from 'react-native/Libraries/NewAppScreen';

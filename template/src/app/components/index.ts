@@ -4,3 +4,4 @@ export * from './Icon';
 export * from './FormInput';
 export * from './Toaster';
 export * from './FooterTabBar';
+export * from './DrawerContent';

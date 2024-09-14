@@ -7,4 +7,5 @@ export interface UserApi {
   updatedDate: Date;
 }
 
-export interface User extends Omit<UserApi, 'createdDate' | 'updatedDate'> {}
+export interface User
+  extends Omit<UserApi, 'createdDate' | 'updatedDate' | 'password'> {}

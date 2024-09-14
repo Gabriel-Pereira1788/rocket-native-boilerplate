@@ -1,10 +1,10 @@
 import { ConfigMutation } from '@infra';
 
 import { authService } from '../authService';
-import { User } from '../authTypes';
+import { User, UserApi } from '../authTypes';
 import { useAuthMutation } from '../hooks';
 
-type SignUpVariables = Pick<User, 'email' | 'password' | 'username'>;
+type SignUpVariables = Pick<UserApi, 'email' | 'password' | 'username'>;
 export function useAuthSignUp({
   onSuccess,
   onError,

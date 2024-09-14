@@ -1,6 +1,7 @@
 import React, { useCallback, useEffect } from 'react';
 import { TouchableOpacity, View } from 'react-native';
 
+import { If } from '@helpers';
 import Animated, {
   BounceIn,
   useSharedValue,
@@ -46,14 +47,14 @@ export function FooterTabItem({
       className="items-center flex-1 relative mb-5"
       style={{ transform: [{ scale }] }}
       accessibilityRole="button">
-      <Icon iconName={iconName} color={iconColor} size={30} />
-      {focused && (
+      <Icon iconName={iconName} color={iconColor} size={25} />
+      <If condition={focused}>
         <Animated.View
           entering={BounceIn}
           style={{ position: 'absolute', bottom: -8, zIndex: 10 }}>
           <View className="rounded-full p-1 mt-1 bg-slate-500" />
         </Animated.View>
-      )}
+      </If>
     </TouchableOpacityAnimated>
   );
 }

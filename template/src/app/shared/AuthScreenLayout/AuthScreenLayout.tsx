@@ -1,6 +1,7 @@
 import { Text, View } from 'react-native';
 
 import { AnimatedFadeEntrance } from '@animations';
+import { For, If } from '@helpers';
 
 import { Button } from '@components';
 
@@ -31,29 +32,29 @@ export function AuthScreenLayout({
       <View className="w-full" style={{ gap: 10 }}>
         {children}
         <View className="w-full mt-4 mb-2">
-          {buttonsProps &&
-            buttonsProps?.length > 0 &&
-            buttonsProps?.map((buttonProp, index) => {
-              return (
-                <AnimatedFadeEntrance entrance="down" key={index}>
-                  <Button {...buttonProp} />
-                </AnimatedFadeEntrance>
-              );
-            })}
-          {actionPrompt && (
+          <For
+            data={buttonsProps}
+            render={(buttonProp, index) => (
+              <AnimatedFadeEntrance entrance="down" key={index}>
+                <Button {...buttonProp} />
+              </AnimatedFadeEntrance>
+            )}
+          />
+
+          <If condition={!!actionPrompt}>
             <AnimatedFadeEntrance entrance="down">
               <View className="w-full items-center justify-center flex-row mt-2">
                 <Text className="font-normal text-base text-slate-400">
-                  {actionPrompt.message}{' '}
+                  {actionPrompt!.message}{' '}
                 </Text>
                 <Button
-                  text={actionPrompt.actionText}
+                  text={actionPrompt!.actionText}
                   variant="transparent"
-                  onPress={actionPrompt.action}
+                  onPress={actionPrompt!.action}
                 />
               </View>
             </AnimatedFadeEntrance>
-          )}
+          </If>
         </View>
       </View>
     </ScreenLayout>

@@ -1,13 +1,15 @@
 import { useAuthSignIn } from '@domain';
-import { toasterService } from '@services';
+import { toasterService, useUserCredentialsActions } from '@services';
 
 import { useLoginController } from './login.controller';
 import { LoginView } from './login.view';
 
 export function LoginScreen() {
+  const { setCredentials } = useUserCredentialsActions();
   const signInUseCase = useAuthSignIn({
-    onSuccess: () => {
+    onSuccess: response => {
       toasterService.success('Success', 'Welcome John doe!');
+      setCredentials(response);
     },
     onError: () => {
       toasterService.error(

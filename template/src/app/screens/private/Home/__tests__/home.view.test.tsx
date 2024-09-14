@@ -9,7 +9,7 @@ function customRender() {
   render(<HomeView controller={controller} />);
 
   return {
-    element: screen.getByTestId(''),
+    element: screen.getByText('Home'),
   };
 }
 

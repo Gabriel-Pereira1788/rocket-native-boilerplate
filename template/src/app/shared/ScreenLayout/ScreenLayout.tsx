@@ -1,5 +1,6 @@
 import { View } from 'react-native';
 
+import { If } from '@helpers';
 import { useNavigation } from '@react-navigation/native';
 
 import { IconPress } from '@components';
@@ -16,8 +17,8 @@ export function ScreenLayout({
   const navigation = useNavigation();
 
   return (
-    <View className="flex-1 bg-slate-50 px-8">
-      {goBack && (
+    <View className="flex-1 bg-slate-50 px-5 pt-5">
+      <If condition={!!goBack}>
         <View className="w-full items-start mt-6">
           <IconPress
             onPress={navigation.goBack}
@@ -25,10 +26,13 @@ export function ScreenLayout({
             testID="go-back-button"
           />
         </View>
-      )}
+      </If>
 
       <View className="flex-[1] items-center justify-center  w-full">
-        {HeaderElement && <View className="w-full mb-10">{HeaderElement}</View>}
+        <If condition={!!HeaderElement}>
+          <View className="w-full mb-10">{HeaderElement}</View>
+        </If>
+
         {children}
       </View>
     </View>

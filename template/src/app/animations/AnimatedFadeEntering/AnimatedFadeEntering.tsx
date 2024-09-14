@@ -11,6 +11,7 @@ export function AnimatedFadeEntrance({
   entrance,
 }: AnimatedFadeEnteringProps) {
   const animationFade = buildAnimatedFadeEntering(entrance);
+
   return (
     <Animated.View
       entering={animationFade.entering}

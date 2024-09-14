@@ -1,8 +1,8 @@
 import React, { useEffect, useImperativeHandle, useState } from 'react';
-import { Text } from 'react-native';
-import { View } from 'react-native';
+import { Text, View } from 'react-native';
 
 import { AnimatedFadeEntrance } from '@animations';
+import { If } from '@helpers';
 
 import { Icon } from '../Icon';
 
@@ -57,7 +57,7 @@ export const Toaster = React.forwardRef<ToasterRefProps, {}>((_, ref) => {
     <View
       className="self-center mb-5 z-10 w-3/4 relative"
       style={{ bottom: height }}>
-      {toasterConfig && (
+      <If condition={!!toasterConfig}>
         <AnimatedFadeEntrance entrance="down">
           <View
             testID="toast"
@@ -73,23 +73,23 @@ export const Toaster = React.forwardRef<ToasterRefProps, {}>((_, ref) => {
             />
             <View className="w-full h-full bg-slate-100 py-4 px-4 flex-row rounded-lg shadow-lg">
               <View className="flex-1">
-                <Icon iconName={_iconName!} size={20} color={_color} />
+                <Icon iconName={_iconName!} size={25} color={_color} />
               </View>
 
               <View
                 className="w-full items-center justify-center"
                 style={{ gap: 10 }}>
-                <Text className="text-base  text-black ">
-                  {toasterConfig.title}
+                <Text className="text-lg  text-black font-medium">
+                  {toasterConfig?.title}
                 </Text>
-                <Text className="text-slate-500 text-base">
-                  {toasterConfig.message}
+                <Text className="text-slate-500 text-sm">
+                  {toasterConfig?.message}
                 </Text>
               </View>
             </View>
           </View>
         </AnimatedFadeEntrance>
-      )}
+      </If>
     </View>
   );
 });

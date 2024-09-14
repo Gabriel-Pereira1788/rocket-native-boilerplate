@@ -6,6 +6,8 @@ import {
   TouchableOpacityProps,
 } from 'react-native';
 
+import { If } from '@helpers';
+
 import { buildVariant } from './library';
 
 export type ButtonProps = {
@@ -33,11 +35,13 @@ export function Button({
         _variant.container +
         _loadingStyle
       }>
-      {loading ? (
+      <If
+        condition={!!loading}
+        elseRender={
+          <Text className={'text-base ' + _variant.text}>{text}</Text>
+        }>
         <ActivityIndicator size={20} />
-      ) : (
-        <Text className={'text-base ' + _variant.text}>{text}</Text>
-      )}
+      </If>
     </TouchableOpacity>
   );
 }
