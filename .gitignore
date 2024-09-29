@@ -7,6 +7,7 @@ Podfile.lock
 
 # OSX
 #
+yarn.lock
 .DS_Store
 .env
 # Xcode
