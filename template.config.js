@@ -1,5 +1,5 @@
 module.exports = {
-    placeholderName: "ProjectName",
+    placeholderName: "Template",
     templateDir: "./template",
     postInitScript: "./create.js",
 };
