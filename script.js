@@ -1,4 +1,19 @@
 #!/usr/bin/env node
-const { execSync } = require("child_process");
+const ora = require("ora");
 
-console.log("Welcome to rocket native.🚀 \n");
+const spinner = ora("Executing post init script ");
+
+new Promise((resolve) => {
+    spinner.start();
+    // do something
+    resolve();
+})
+    .then(() => {
+        spinner.succeed();
+    })
+    .catch(() => {
+        spinner.fail();
+        throw new Error(
+            "Something went wrong during the post init script execution"
+        );
+    });
