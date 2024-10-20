@@ -6,7 +6,7 @@ import { gitRepoService } from '../gitRepoService';
 export function useGetRepoFollowers() {
   const { data, isError, isLoading, isRefetching } = useQuery({
     queryKey: [QueryKeys.GetRepoFollowers],
-    queryFn: () => gitRepoService.getRepoFollowers(),
+    queryFn: () => gitRepoService.getRepoFollowersStarGazers(),
   });
 
   return {

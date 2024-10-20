@@ -6,6 +6,7 @@ import { ScreenLayout } from '@shared';
 
 import { Button } from '@components';
 
+import { VERSION, WELCOME_TEXT } from './constants';
 import { WelcomeScreenController } from './welcome.controller';
 
 type WelcomeViewProps = {
@@ -25,7 +26,7 @@ export function WelcomeView({ controller }: WelcomeViewProps) {
         <View>
           <AnimatedFadeEntrance entrance="up">
             <Text className="text-3xl px-2 -tracking-widest font-bold  text-left text-slate-800">
-              👋 Hello there, Welcome to Rocket Native.
+              {WELCOME_TEXT}
             </Text>
           </AnimatedFadeEntrance>
         </View>
@@ -48,7 +49,7 @@ export function WelcomeView({ controller }: WelcomeViewProps) {
         </View>
       </View>
       <View className="w-full items-center justify-center p-4">
-        <Text className="font-semibold text-base">Version: 1.0</Text>
+        <Text className="font-semibold text-base">{VERSION}</Text>
       </View>
     </ScreenLayout>
   );

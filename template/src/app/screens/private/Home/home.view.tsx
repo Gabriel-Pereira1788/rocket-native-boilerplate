@@ -7,7 +7,7 @@ import { ScreenLayout } from '@shared';
 
 import { ActivityIndicator, ScrollList } from '@components';
 
-import { FollowerCard } from './components/FollowerCard';
+import { HomeScreenListHeader, FollowerCard } from './components';
 import { HomeController } from './home.controller';
 
 type HomeViewProps = {
@@ -42,6 +42,7 @@ export function HomeView({ controller }: HomeViewProps) {
           keyExtractor={item => String(item.id)}
           onRefresh={controller.onRefresh}
           renderItem={renderItem}
+          ListHeaderComponent={HomeScreenListHeader}
           emptyLabelProps={{
             title: 'Empty Data',
             message: 'try again later',

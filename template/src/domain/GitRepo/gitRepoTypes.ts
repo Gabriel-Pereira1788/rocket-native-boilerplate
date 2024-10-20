@@ -1,5 +1,3 @@
-export interface GitRepoType {}
-
 export interface GitHubFollowerApi {
   login: string;
   id: number;

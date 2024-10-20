@@ -6,7 +6,7 @@ const ghApi = axios.create({
   baseURL: 'https://api.github.com/',
 });
 
-async function getRepoFollowersStar(): Promise<GitHubFollowerApi[]> {
+async function getRepoStarGazers(): Promise<GitHubFollowerApi[]> {
   const response = await ghApi.get<GitHubFollowerApi[]>(
     'repos/Gabriel-Pereira1788/rocket-native-boilerplate/stargazers',
   );
@@ -20,6 +20,6 @@ async function getFollower(id: number): Promise<GitHubFollowerApi> {
 }
 
 export const gitRepoGateway = {
-  getRepoFollowersStar,
+  getRepoStarGazers,
   getFollower,
 };
