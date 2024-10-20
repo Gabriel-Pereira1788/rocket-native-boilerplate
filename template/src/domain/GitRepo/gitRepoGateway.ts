@@ -14,6 +14,12 @@ async function getRepoFollowersStar(): Promise<GitHubFollowerApi[]> {
   return response.data;
 }
 
+async function getFollower(id: number): Promise<GitHubFollowerApi> {
+  const response = await ghApi.get<GitHubFollowerApi>(`user/${id}`);
+  return response.data;
+}
+
 export const gitRepoGateway = {
   getRepoFollowersStar,
+  getFollower,
 };

@@ -20,10 +20,14 @@ export interface GitHubFollowerApi {
   type: string;
   user_view_type: string;
   site_admin: boolean;
+  name?: string;
+  bio?: string;
 }
 
 export interface GitHubFollower {
   id: number;
-  followerName: string;
+  username: string;
+  fullname?: string;
+  bio?: string;
   avatarUrl: string;
 }

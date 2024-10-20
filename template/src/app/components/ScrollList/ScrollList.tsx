@@ -4,22 +4,21 @@ import { FlatList, FlatListProps, RefreshControl, View } from 'react-native';
 import { EmptyLabel, EmptyLabelProps } from '../EmptyLabel/EmptyLabel';
 
 type ScrollListProps<Data> = {
-  data: Data[] | undefined | null;
-  renderItem: FlatListProps<Data>['renderItem'];
-  onRefresh?: () => Promise<void> | void;
-  refreshing?: boolean;
   emptyLabelProps?: EmptyLabelProps;
-};
+} & Omit<FlatListProps<Data>, 'refreshControl' | 'ListEmptyComponent'>;
 
 export function ScrollList<Data>({
   data,
   renderItem,
   onRefresh,
+  testID,
   refreshing,
   emptyLabelProps,
+  ...flatListProps
 }: ScrollListProps<Data>) {
   return (
     <FlatList
+      testID={testID}
       data={data}
       renderItem={renderItem}
       ListEmptyComponent={
@@ -30,8 +29,15 @@ export function ScrollList<Data>({
         )
       }
       refreshControl={
-        <RefreshControl onRefresh={onRefresh} refreshing={!!refreshing} />
+        onRefresh ? (
+          <RefreshControl
+            testID="refresh-scroll-list-controll"
+            onRefresh={onRefresh}
+            refreshing={!!refreshing}
+          />
+        ) : undefined
       }
+      showsVerticalScrollIndicator={false}
       style={{
         width: '100%',
       }}
@@ -41,6 +47,7 @@ export function ScrollList<Data>({
         paddingTop: 50,
         gap: 25,
       }}
+      {...flatListProps}
     />
   );
 }

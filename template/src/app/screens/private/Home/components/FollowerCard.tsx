@@ -1,4 +1,4 @@
-import { Image, Text, TouchableOpacity, View } from 'react-native';
+import { Image, Text, View } from 'react-native';
 
 import { GitHubFollower } from '@domain';
 
@@ -17,7 +17,7 @@ export function FollowerCard({ follower }: FollowerCardProps) {
         className="rounded-full"
       />
       <Text className="text-white font-bold text-slate-800">
-        {follower.followerName}
+        {follower.username}
       </Text>
     </View>
   );

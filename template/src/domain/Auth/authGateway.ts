@@ -51,7 +51,7 @@ async function signUp({
     }, 3000);
   });
 }
-export const authApi = {
+export const authGateway = {
   signIn,
   signUp,
 };

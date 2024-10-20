@@ -1,4 +1,4 @@
-import { fireEvent, render, screen } from '@test';
+import { act, fireEvent, render, screen } from '@test';
 
 import { HomeController } from '../home.controller';
 import { HomeView } from '../home.view';
@@ -18,6 +18,8 @@ function customRender(customController: HomeController) {
   return {
     homeLoadingElement: screen.queryByTestId('home-loading-element'),
     emptyTextElement: screen.queryByText('Empty Data'),
+
+    followersListElement: screen.queryByTestId('followers-list'),
   };
 }
 
@@ -27,6 +29,8 @@ describe('<HomeView />', () => {
       isLoading: true,
       followers: [],
       redirectToFollowerScreen: jest.fn(),
+      refreshing: false,
+      onRefresh: jest.fn(),
     };
     const { homeLoadingElement } = customRender(controller);
 
@@ -35,21 +39,23 @@ describe('<HomeView />', () => {
 
   it('should be render followers cards correctly', () => {
     const controller: HomeController = {
+      refreshing: false,
+      onRefresh: jest.fn(),
       isLoading: false,
       followers: [
         {
           avatarUrl: 'http://www.link.com',
-          followerName: 'John doe',
+          username: 'John doe',
           id: 1,
         },
         {
           avatarUrl: 'http://www.link.com',
-          followerName: 'John doe',
+          username: 'John doe',
           id: 2,
         },
         {
           avatarUrl: 'http://www.link.com',
-          followerName: 'John doe',
+          username: 'John doe',
           id: 3,
         },
       ],
@@ -66,6 +72,8 @@ describe('<HomeView />', () => {
       isLoading: false,
       followers: [],
       redirectToFollowerScreen: jest.fn(),
+      refreshing: false,
+      onRefresh: jest.fn(),
     };
     const { emptyTextElement } = customRender(controller);
 
@@ -78,16 +86,44 @@ describe('<HomeView />', () => {
       followers: [
         {
           avatarUrl: 'http://www.link.com',
-          followerName: 'John doe',
+          username: 'John doe',
           id: 1,
         },
       ],
       redirectToFollowerScreen: jest.fn(),
+      refreshing: false,
+      onRefresh: jest.fn(),
     };
 
     customRender(controller);
     const followerCard = screen.getByText('John doe');
     fireEvent.press(followerCard);
     expect(controller.redirectToFollowerScreen).toHaveBeenCalledWith(1);
+  });
+
+  it('should be render refresh loading', async () => {
+    const controller: HomeController = {
+      isLoading: false,
+      followers: [
+        {
+          avatarUrl: 'http://www.link.com',
+          username: 'John doe',
+          id: 1,
+        },
+      ],
+      redirectToFollowerScreen: jest.fn(),
+      refreshing: true,
+      onRefresh: jest.fn(),
+    };
+
+    const { followersListElement } = customRender(controller);
+    expect(followersListElement).toBeDefined();
+
+    const { refreshControl } = followersListElement!.props;
+    await act(async () => {
+      refreshControl.props.onRefresh();
+    });
+
+    expect(refreshControl.props.refreshing).toEqual(controller.refreshing);
   });
 });

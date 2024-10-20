@@ -1,4 +1,4 @@
-import { Text } from 'react-native';
+import { Image, Text } from 'react-native';
 
 import { ScreenLayout } from '@shared';
 
@@ -9,10 +9,17 @@ type FollowerDetailsViewProps = {
 };
 
 export function FollowerDetailsView({ controller }: FollowerDetailsViewProps) {
-  const screenName = 'FollowerDetails';
   return (
     <ScreenLayout goBack>
-      <Text>{screenName}</Text>
+      <Image
+        className="mb-5 rounded-full"
+        source={{ uri: controller.details?.avatarUrl }}
+        width={100}
+        height={100}
+      />
+      <Text>{controller.details?.username}</Text>
+      <Text>{controller.details?.fullname}</Text>
+      <Text>{controller.details?.bio}</Text>
     </ScreenLayout>
   );
 }

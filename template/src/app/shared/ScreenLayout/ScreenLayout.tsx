@@ -19,9 +19,9 @@ export function ScreenLayout({
 
   return (
     <SafeAreaView className="flex-1 bg-slate-50">
-      <View className="flex-1 bg-slate-50 px-5 pt-5">
+      <View className="flex-1 bg-slate-50 px-5">
         <If condition={!!goBack}>
-          <View className="w-full items-start mt-6">
+          <View className="w-full items-start">
             <IconPress
               onPress={navigation.goBack}
               iconName="arrowLeft"

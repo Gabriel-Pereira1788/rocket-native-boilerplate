@@ -4,15 +4,17 @@ import { useQuery } from '@tanstack/react-query';
 import { gitRepoService } from '../gitRepoService';
 
 export function useGetRepoFollowers() {
-  const { data, isPending, isError } = useQuery({
+  const { data, isError, isLoading, isRefetching } = useQuery({
     queryKey: [QueryKeys.GetRepoFollowers],
     queryFn: () => gitRepoService.getRepoFollowers(),
   });
 
   return {
     followers: data,
-    loading: isPending,
+    loading: isLoading,
+    refetching: isRefetching,
     isError,
   };
 }
+
 export type GetRepoFollowersUseCase = ReturnType<typeof useGetRepoFollowers>;

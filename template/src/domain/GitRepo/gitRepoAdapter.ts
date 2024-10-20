@@ -9,7 +9,9 @@ function toGitHubFollower(followerApi: GitHubFollowerApi): GitHubFollower {
   return {
     id: followerApi.id,
     avatarUrl: followerApi.avatar_url,
-    followerName: followerApi.login,
+    username: followerApi.login,
+    fullname: followerApi?.name,
+    bio: followerApi?.bio,
   };
 }
 export const gitRepoAdapter = {

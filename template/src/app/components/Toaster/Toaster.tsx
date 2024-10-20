@@ -69,7 +69,7 @@ export const Toaster = React.forwardRef<ToasterRefProps, {}>((_, ref) => {
             style={{ gap: 15 }}>
             <View
               className="absolute  w-full h-full rounded-lg "
-              style={{ zIndex: 0, bottom: 5, backgroundColor: _color }}
+              style={{ zIndex: 0, bottom: 3, backgroundColor: _color }}
             />
             <View className="w-full h-full bg-slate-100 py-4 px-4 flex-row rounded-lg shadow-lg">
               <View className="flex-1">

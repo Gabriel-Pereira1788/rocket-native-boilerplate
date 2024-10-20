@@ -36,7 +36,11 @@ export function HomeView({ controller }: HomeViewProps) {
       </If>
       <If condition={!controller.isLoading}>
         <ScrollList
+          testID="followers-list"
           data={controller.followers}
+          refreshing={controller.refreshing}
+          keyExtractor={item => String(item.id)}
+          onRefresh={controller.onRefresh}
           renderItem={renderItem}
           emptyLabelProps={{
             title: 'Empty Data',

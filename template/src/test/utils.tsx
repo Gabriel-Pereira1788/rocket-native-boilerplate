@@ -1,6 +1,10 @@
 import { RootProvider } from '@providers';
 import { NavigationContainer } from '@react-navigation/native';
-import { QueryClient, QueryClientConfig } from '@tanstack/react-query';
+import {
+  QueryClient,
+  QueryClientConfig,
+  QueryClientProvider,
+} from '@tanstack/react-query';
 import {
   RenderHookOptions,
   RenderOptions,
@@ -48,6 +52,17 @@ function wrapScreenProviders() {
   };
 }
 
+function wrapHookProviders(_queryClient?: QueryClient) {
+  return ({ children }: React.PropsWithChildren) => {
+    const queryClient = _queryClient
+      ? _queryClient
+      : new QueryClient(queryClientConfig);
+    return (
+      <QueryClientProvider client={queryClient}>{children}</QueryClientProvider>
+    );
+  };
+}
+
 export function customRender<T>(
   component: React.ReactElement<T>,
   options?: Omit<RenderOptions, 'wrapper'>,
@@ -63,10 +78,12 @@ export function customRenderScreen<T>(
 }
 export function customRenderHook<Result, Props>(
   renderCallback: (props: Props) => Result,
-  options?: Omit<RenderHookOptions<Props>, 'wrapper'>,
+  options?: Omit<RenderHookOptions<Props>, 'wrapper'> & {
+    queryClient?: QueryClient;
+  },
 ) {
   return renderHook(renderCallback, {
-    wrapper: wrapAllProviders(),
+    wrapper: wrapHookProviders(options?.queryClient),
     ...options,
   });
 }
