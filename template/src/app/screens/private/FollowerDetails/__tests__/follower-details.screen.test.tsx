@@ -1,16 +1,16 @@
 import { renderScreen, screen } from '@test';
 
-import { {{pascalCase name}}Screen } from '../{{kebabCase name}}.screen';
+import { FollowerDetailsScreen } from '../follower-details.screen';
 
 function customRenderScreen() {
-  renderScreen(<{{pascalCase name}}Screen />);
+  renderScreen(<FollowerDetailsScreen />);
 
   return {
     element: screen.getByTestId(''),
   };
 }
 
-describe('<{{pascalCase name}}Screen />', () => {
+describe('<FollowerDetailsScreen />', () => {
   it('should be render component correctly', () => {
     const {} = customRenderScreen();
 

@@ -1,17 +1,12 @@
 import React from 'react';
-import { View } from 'react-native';
 
 import {
   BottomTabBarProps,
   createBottomTabNavigator,
 } from '@react-navigation/bottom-tabs';
-import { DrawerNavigationProp } from '@react-navigation/drawer';
-import { useNavigation } from '@react-navigation/native';
 
-import { DrawerMenu, FooterTabBar, IconPress } from '@components';
+import { DrawerMenu, FooterTabBar } from '@components';
 import { HomeScreen, ProfileScreen, SearchScreen } from '@screens';
-
-import { AppDrawerParamList } from './AppDrawerNavigator';
 
 export type AppTabParamList = {
   HomeScreen: undefined;

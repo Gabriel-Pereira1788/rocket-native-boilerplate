@@ -10,6 +10,7 @@ import House from 'phosphor-react-native/src/icons/HouseSimple';
 import List from 'phosphor-react-native/src/icons/List';
 import Lock from 'phosphor-react-native/src/icons/Lock';
 import MagnifyingGlass from 'phosphor-react-native/src/icons/MagnifyingGlass';
+import PlaceHolder from 'phosphor-react-native/src/icons/Placeholder';
 import User from 'phosphor-react-native/src/icons/User';
 import Warning from 'phosphor-react-native/src/icons/Warning';
 import X from 'phosphor-react-native/src/icons/X';
@@ -31,6 +32,7 @@ export const mappedIcons = {
   doorOpen: DoorOpen,
   gear: Gear,
   list: List,
+  placeHolder: PlaceHolder,
   x: X,
 };
 export function buildIcon(iconName: IconProps['iconName']) {

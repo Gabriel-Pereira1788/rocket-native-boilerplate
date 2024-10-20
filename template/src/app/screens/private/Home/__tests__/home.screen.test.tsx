@@ -1,19 +1,58 @@
-import { renderScreen, screen } from '@test';
+import { AppStack } from '@router';
+import {
+  act,
+  fireEvent,
+  mockListGitRepoFollowers,
+  renderScreen,
+  screen,
+  server,
+} from '@test';
 
-import { HomeScreen } from '../home.screen';
-
-function customRenderScreen() {
-  renderScreen(<HomeScreen />);
+async function customRenderScreen() {
+  renderScreen(<AppStack />);
 
   return {
-    element: screen.getByTestId(''),
+    followersCards: await screen.findAllByTestId('follower-card'),
   };
 }
 
-describe('<HomeScreen />', () => {
-  it('should be render component correctly', () => {
-    const {} = customRenderScreen();
+beforeAll(() => {
+  server.listen();
+  jest.useFakeTimers();
+});
 
-    expect(true).toBeTruthy();
+afterAll(() => {
+  server.close();
+});
+
+describe('<HomeScreen />', () => {
+  it('Flow: should be render followers users from api', async () => {
+    const { followersCards } = await customRenderScreen();
+
+    expect(followersCards.length).toEqual(mockListGitRepoFollowers.length);
+  });
+
+  it('Flow: should be redirect to follower details screen', async () => {
+    const { followersCards } = await customRenderScreen();
+
+    //1) - Check if followers cards is rendered.
+    expect(followersCards.length).toEqual(mockListGitRepoFollowers.length);
+
+    //2) Press to first follower card
+    act(() => {
+      fireEvent.press(followersCards[0]);
+    });
+
+    //3) Check redirect correctly to follower details screen
+    expect(screen.getByText('FollowerDetails')).toBeTruthy();
+
+    //4) go back to previous screen
+    const goBackButton = screen.getByTestId('go-back-button');
+    act(() => {
+      fireEvent.press(goBackButton);
+    });
+
+    //5) Check replace to previous screen correctly
+    expect(followersCards.length).toEqual(mockListGitRepoFollowers.length);
   });
 });

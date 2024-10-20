@@ -11,22 +11,22 @@ module.exports = function (plop) {
     actions: [
       {
         type: 'add',
-        path: 'src/domain/{{pascalCase name}}/{{name}}Gateway.ts',
+        path: 'src/domain/{{pascalCase name}}/{{camelCase name}}Gateway.ts',
         templateFile: 'plop-generator/templates/domain/domainGateway.hbs',
       },
       {
         type: 'add',
-        path: 'src/domain/{{pascalCase name}}/{{name}}Service.ts',
+        path: 'src/domain/{{pascalCase name}}/{{camelCase name}}Service.ts',
         templateFile: 'plop-generator/templates/domain/domainService.hbs',
       },
       {
         type: 'add',
-        path: 'src/domain/{{pascalCase name}}/{{name}}Adapter.ts',
+        path: 'src/domain/{{pascalCase name}}/{{camelCase name}}Adapter.ts',
         templateFile: 'plop-generator/templates/domain/domainAdapter.hbs',
       },
       {
         type: 'add',
-        path: 'src/domain/{{pascalCase name}}/{{name}}Types.ts',
+        path: 'src/domain/{{pascalCase name}}/{{camelCase name}}Types.ts',
         templateFile: 'plop-generator/templates/domain/domainTypes.hbs',
       },
       {
