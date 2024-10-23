@@ -29,3 +29,14 @@ export interface GitHubFollower {
   bio?: string;
   avatarUrl: string;
 }
+
+export type QueryParams = {
+  page?: number;
+  perPage?: number;
+};
+
+export type GitHubPaginatedResult = {
+  data: GitHubFollower[];
+  hasNextPage: boolean;
+  nextPage: number;
+};

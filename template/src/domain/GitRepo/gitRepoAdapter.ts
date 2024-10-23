@@ -1,9 +1,18 @@
-import { GitHubFollower, GitHubFollowerApi } from './gitRepoTypes';
+import {
+  GitHubFollower,
+  GitHubFollowerApi,
+  GitHubPaginatedResult,
+} from './gitRepoTypes';
 
-function toListGitHubFollowers(
+function toPaginatedGitHubFollowers(
   followersListApi: GitHubFollowerApi[],
-): GitHubFollower[] {
-  return followersListApi.map(followerApi => toGitHubFollower(followerApi));
+  page: number,
+): GitHubPaginatedResult {
+  return {
+    data: followersListApi.map(followerApi => toGitHubFollower(followerApi)),
+    hasNextPage: followersListApi.length > 0,
+    nextPage: page + 1,
+  };
 }
 function toGitHubFollower(followerApi: GitHubFollowerApi): GitHubFollower {
   return {
@@ -15,6 +24,6 @@ function toGitHubFollower(followerApi: GitHubFollowerApi): GitHubFollower {
   };
 }
 export const gitRepoAdapter = {
-  toListGitHubFollowers,
+  toPaginatedGitHubFollowers,
   toGitHubFollower,
 };

@@ -17,6 +17,7 @@
         "@react-navigation/native": "^6.1.9",
         "@react-navigation/native-stack": "^6.9.17",
         "@react-navigation/stack": "^6.3.20",
+        "@shopify/flash-list": "^1.7.1",
         "@tanstack/react-query": "^5.52.2",
         "axios": "^1.7.4",
         "husky": "^9.1.5",

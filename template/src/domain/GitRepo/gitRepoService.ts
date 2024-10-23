@@ -1,16 +1,21 @@
 import { gitRepoAdapter } from './gitRepoAdapter';
 import { gitRepoGateway } from './gitRepoGateway';
 
-async function getRepoFollowersStarGazers() {
-  const starGazersList = await gitRepoGateway.getRepoStarGazers();
+async function getRepoFollowersStarGazers(page: number) {
+  const starGazersList = await gitRepoGateway.getRepoStarGazers({
+    page,
+  });
 
-  const followersData = await Promise.all(
-    starGazersList.map(async data => {
-      return await gitRepoGateway.getFollower(data.id);
-    }),
-  );
+  const followersData =
+    starGazersList.length > 0
+      ? await Promise.all(
+          starGazersList.map(async data => {
+            return await gitRepoGateway.getFollower(data.id);
+          }),
+        )
+      : [];
 
-  return gitRepoAdapter.toListGitHubFollowers(followersData);
+  return gitRepoAdapter.toPaginatedGitHubFollowers(followersData, page);
 }
 
 async function getFollowerDetails(id: number) {

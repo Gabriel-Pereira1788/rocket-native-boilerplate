@@ -1,5 +1,6 @@
 import { act, fireEvent, render, screen } from '@test';
 
+import { HOME_HEADER_SUBTITLE, HOME_HEADER_TITLE } from '../constants';
 import { HomeController } from '../home.controller';
 import { HomeView } from '../home.view';
 
@@ -18,7 +19,8 @@ function customRender(customController: HomeController) {
   return {
     homeLoadingElement: screen.queryByTestId('home-loading-element'),
     emptyTextElement: screen.queryByText('Empty Data'),
-
+    headerTitleElement: screen.queryByText(HOME_HEADER_TITLE),
+    headerSubtitleElement: screen.queryByText(HOME_HEADER_SUBTITLE),
     followersListElement: screen.queryByTestId('followers-list'),
   };
 }
@@ -27,6 +29,7 @@ describe('<HomeView />', () => {
   it('should be render activity indicator', () => {
     const controller: HomeController = {
       isLoading: true,
+      fetchNextPage: jest.fn(),
       followers: [],
       redirectToFollowerScreen: jest.fn(),
       refreshing: false,
@@ -37,9 +40,25 @@ describe('<HomeView />', () => {
     expect(homeLoadingElement).toBeTruthy();
   });
 
+  it('should be render header title and subtitle elements', () => {
+    const controller: HomeController = {
+      isLoading: false,
+      followers: [],
+      redirectToFollowerScreen: jest.fn(),
+      refreshing: false,
+      onRefresh: jest.fn(),
+    };
+    const { headerTitleElement, headerSubtitleElement } =
+      customRender(controller);
+
+    expect(headerTitleElement).toBeDefined();
+    expect(headerSubtitleElement).toBeDefined();
+  });
+
   it('should be render followers cards correctly', () => {
     const controller: HomeController = {
       refreshing: false,
+      fetchNextPage: jest.fn(),
       onRefresh: jest.fn(),
       isLoading: false,
       followers: [
@@ -63,12 +82,13 @@ describe('<HomeView />', () => {
     };
 
     customRender(controller);
-    const followersCards = screen.getAllByText('John doe');
+    const followersCards = screen.getAllByText('@John doe');
     expect(followersCards.length).toEqual(controller.followers?.length);
   });
 
   it('should be render empty label', () => {
     const controller: HomeController = {
+      fetchNextPage: jest.fn(),
       isLoading: false,
       followers: [],
       redirectToFollowerScreen: jest.fn(),
@@ -83,6 +103,7 @@ describe('<HomeView />', () => {
   it('should be call press function correctly', () => {
     const controller: HomeController = {
       isLoading: false,
+      fetchNextPage: jest.fn(),
       followers: [
         {
           avatarUrl: 'http://www.link.com',
@@ -96,7 +117,7 @@ describe('<HomeView />', () => {
     };
 
     customRender(controller);
-    const followerCard = screen.getByText('John doe');
+    const followerCard = screen.getByText('@John doe');
     fireEvent.press(followerCard);
     expect(controller.redirectToFollowerScreen).toHaveBeenCalledWith(1);
   });
@@ -104,6 +125,7 @@ describe('<HomeView />', () => {
   it('should be render refresh loading', async () => {
     const controller: HomeController = {
       isLoading: false,
+      fetchNextPage: jest.fn(),
       followers: [
         {
           avatarUrl: 'http://www.link.com',

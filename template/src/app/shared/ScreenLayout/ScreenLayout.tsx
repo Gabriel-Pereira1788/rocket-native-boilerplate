@@ -1,8 +1,7 @@
 import { View } from 'react-native';
 
-import { If } from '@helpers';
+import { If, useAppSafeArea } from '@helpers';
 import { useNavigation } from '@react-navigation/native';
-import { SafeAreaView } from 'react-native-safe-area-context';
 
 import { IconPress } from '@components';
 
@@ -16,9 +15,10 @@ export function ScreenLayout({
   children,
 }: ScreenLayoutProps) {
   const navigation = useNavigation();
+  const { top } = useAppSafeArea();
 
   return (
-    <SafeAreaView className="flex-1 bg-slate-50">
+    <View className="flex-1 bg-slate-50">
       <View className="flex-1 bg-slate-50 px-5">
         <If condition={!!goBack}>
           <View className="w-full items-start">
@@ -30,14 +30,15 @@ export function ScreenLayout({
           </View>
         </If>
 
-        <View className="flex-[1] items-center justify-center  w-full">
+        <View
+          className="flex-[1] items-center justify-center  w-full"
+          style={{ paddingTop: top }}>
           <If condition={!!HeaderElement}>
             <View className="w-full mb-10">{HeaderElement}</View>
           </If>
-
           {children}
         </View>
       </View>
-    </SafeAreaView>
+    </View>
   );
 }

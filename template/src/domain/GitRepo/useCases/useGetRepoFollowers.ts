@@ -1,19 +1,28 @@
 import { QueryKeys } from '@infra';
-import { useQuery } from '@tanstack/react-query';
+import { useInfiniteQuery } from '@tanstack/react-query';
 
 import { gitRepoService } from '../gitRepoService';
+import { GitHubPaginatedResult } from '../gitRepoTypes';
 
 export function useGetRepoFollowers() {
-  const { data, isError, isLoading, isRefetching } = useQuery({
+  const query = useInfiniteQuery({
+    initialPageParam: 1,
     queryKey: [QueryKeys.GetRepoFollowers],
-    queryFn: () => gitRepoService.getRepoFollowersStarGazers(),
+    getNextPageParam: (lastPage: GitHubPaginatedResult) =>
+      lastPage.hasNextPage ? lastPage.nextPage : null,
+    queryFn: ({ pageParam = 1 }) =>
+      gitRepoService.getRepoFollowersStarGazers(pageParam),
   });
 
   return {
-    followers: data,
-    loading: isLoading,
-    refetching: isRefetching,
-    isError,
+    data: query.data,
+    getMore: query.fetchNextPage,
+    isLoading: query.isPending,
+    loadingNextPage: query.isFetchingNextPage,
+    error: query.error,
+    refresh: query.refetch,
+    hasNextPage: query.hasNextPage,
+    refreshing: query.isRefetching,
   };
 }
 

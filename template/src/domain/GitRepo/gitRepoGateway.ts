@@ -1,14 +1,17 @@
 import axios from 'axios';
 
-import { GitHubFollowerApi } from './gitRepoTypes';
+import { GitHubFollowerApi, QueryParams } from './gitRepoTypes';
 
 const ghApi = axios.create({
   baseURL: 'https://api.github.com/',
 });
 
-async function getRepoStarGazers(): Promise<GitHubFollowerApi[]> {
+async function getRepoStarGazers({
+  page = 1,
+  perPage = 3,
+}: QueryParams): Promise<GitHubFollowerApi[]> {
   const response = await ghApi.get<GitHubFollowerApi[]>(
-    'repos/Gabriel-Pereira1788/rocket-native-boilerplate/stargazers',
+    `repos/Gabriel-Pereira1788/rocket-native-boilerplate/stargazers?page=${page}&?per_page=${perPage}`,
   );
 
   return response.data;

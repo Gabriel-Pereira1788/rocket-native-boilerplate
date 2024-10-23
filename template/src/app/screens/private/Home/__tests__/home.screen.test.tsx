@@ -98,7 +98,10 @@ describe('<HomeScreen />', () => {
       await refreshControl.props.onRefresh();
     });
 
-    jest.runAllTimers();
+    await act(() => {
+      jest.runAllTimers();
+    });
+
     //4) render new data cards
     const newFollowersCardsRender = await screen.findAllByTestId(
       'follower-card',

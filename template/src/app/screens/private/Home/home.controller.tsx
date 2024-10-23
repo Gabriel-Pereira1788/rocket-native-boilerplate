@@ -1,7 +1,7 @@
+import { useEffect, useState } from 'react';
+
 import { GetRepoFollowersUseCase, GitHubFollower } from '@domain';
-import { QueryKeys } from '@infra';
 import { useNavigation } from '@react-navigation/native';
-import { useQueryClient } from '@tanstack/react-query';
 
 type HomeControllerProps = {
   getRepoFollowersUseCase: GetRepoFollowersUseCase;
@@ -10,26 +10,40 @@ type HomeControllerProps = {
 export function useHomeController({
   getRepoFollowersUseCase,
 }: HomeControllerProps) {
+  const [followers, setFollowers] = useState<GitHubFollower[]>([]);
+
   const navigation = useNavigation();
-  const queryClient = useQueryClient();
 
   function redirectToFollowerScreen(followerId: GitHubFollower['id']) {
     navigation.navigate('FollowerDetailsScreen', { id: followerId });
   }
 
   async function onRefresh() {
-    queryClient.invalidateQueries({
-      queryKey: [QueryKeys.GetRepoFollowers],
-
-      refetchType: 'all',
-    });
+    getRepoFollowersUseCase.refresh();
   }
 
+  async function fetchNextPage() {
+    getRepoFollowersUseCase.getMore();
+  }
+
+  useEffect(() => {
+    if (getRepoFollowersUseCase.data) {
+      const newList = getRepoFollowersUseCase.data.pages.reduce<
+        GitHubFollower[]
+      >((acc, curr) => {
+        return [...acc, ...curr.data];
+      }, []);
+
+      setFollowers(newList);
+    }
+  }, [getRepoFollowersUseCase.data]);
+
   return {
-    followers: getRepoFollowersUseCase.followers,
-    isLoading: getRepoFollowersUseCase.loading,
-    refreshing: getRepoFollowersUseCase.refetching,
+    followers,
+    isLoading: getRepoFollowersUseCase.isLoading,
+    refreshing: getRepoFollowersUseCase.refreshing,
     redirectToFollowerScreen,
+    fetchNextPage,
     onRefresh,
   };
 }
