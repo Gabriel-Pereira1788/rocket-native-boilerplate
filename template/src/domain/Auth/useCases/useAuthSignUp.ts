@@ -1,19 +1,22 @@
 import { ConfigMutation } from '@infra';
 
-import { authService } from '../authService';
+import { AuthServiceDomain } from '../authService';
 import { User, UserApi } from '../authTypes';
 import { useAuthMutation } from '../hooks';
 
 type SignUpVariables = Pick<UserApi, 'email' | 'password' | 'username'>;
 export function useAuthSignUp({
+  signUpService,
   onSuccess,
   onError,
-}: ConfigMutation<User, Error>) {
+}: ConfigMutation<User, Error> & {
+  signUpService: AuthServiceDomain['signUp'];
+}) {
   const { mutate, loading, isError, isSuccess } = useAuthMutation<
     User,
     SignUpVariables
   >({
-    mutationService: variables => authService.signUp(variables),
+    mutationService: variables => signUpService(variables),
     onSuccess,
     onError,
   });

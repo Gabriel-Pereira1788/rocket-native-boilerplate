@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { IconWeight } from 'phosphor-react-native';
+import { IconWeight } from 'phosphor-react-native/lib/typescript/index';
 
 import { buildIcon, mappedIcons } from './library/buildIcon';
 export type IconProps = {

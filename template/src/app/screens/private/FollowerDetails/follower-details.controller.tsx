@@ -1,16 +1,23 @@
-import { GetFollowerDetailsUseCase } from '@domain';
+import { useGetFollowerDetails, GitRepoServiceDomain } from '@domain';
 
 type FollowerDetailsControllerProps = {
-  getFollowerDetailsUseCase: GetFollowerDetailsUseCase;
+  gitRepoServiceDomain: GitRepoServiceDomain;
+  id: number;
 };
 
 export function useFollowerDetailsController({
-  getFollowerDetailsUseCase,
+  id,
+  gitRepoServiceDomain,
 }: FollowerDetailsControllerProps) {
+  const { details, isError, loading } = useGetFollowerDetails(
+    id,
+    gitRepoServiceDomain.getFollowerDetails,
+  );
+
   return {
-    details: getFollowerDetailsUseCase.details,
-    loading: getFollowerDetailsUseCase.loading,
-    isError: getFollowerDetailsUseCase.isError,
+    details,
+    isError,
+    loading,
   };
 }
 

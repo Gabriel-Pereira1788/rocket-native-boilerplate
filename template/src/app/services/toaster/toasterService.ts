@@ -35,10 +35,14 @@ function warning(title: string, message: string) {
   });
 }
 
-export const toasterService = {
-  show,
-  hide,
-  success,
-  warning,
-  error,
-};
+export function ToasterServiceFactory() {
+  return {
+    show,
+    hide,
+    success,
+    warning,
+    error,
+  };
+}
+
+export type ToasterService = ReturnType<typeof ToasterServiceFactory>;

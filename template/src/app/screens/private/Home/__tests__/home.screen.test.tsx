@@ -2,13 +2,12 @@ import { AppStack } from '@router';
 import {
   act,
   fireEvent,
-  gitRepoServerHandlerUtils,
   mockListGitRepoFollowers,
   renderScreen,
   screen,
-  server,
 } from '@test';
 
+import { server, gitRepoServerHandlerUtils } from '../../../../../test/server';
 async function customRenderScreen() {
   renderScreen(<AppStack />);
 
@@ -44,7 +43,6 @@ function addNewData() {
 
 beforeAll(() => {
   server.listen();
-  jest.useFakeTimers();
 });
 afterEach(() => server.resetHandlers());
 afterAll(() => server.close());
@@ -96,10 +94,6 @@ describe('<HomeScreen />', () => {
     const { refreshControl } = followersListElement!.props;
     await act(async () => {
       await refreshControl.props.onRefresh();
-    });
-
-    await act(() => {
-      jest.runAllTimers();
     });
 
     //4) render new data cards

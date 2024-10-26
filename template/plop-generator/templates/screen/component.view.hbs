@@ -3,16 +3,17 @@ import { Text } from 'react-native';
 import { ScreenLayout } from '@shared';
 
 import { {{pascalCase name}}Controller } from './{{kebabCase name}}.controller';
+import { SCREEN_NAME } from './constants'
 
 type {{pascalCase name}}ViewProps = {
   controller: {{pascalCase name}}Controller;
 };
 
 export function {{pascalCase name}}View({ controller }: {{pascalCase name}}ViewProps) {
-  const screenName = '{{pascalCase name}}';
+
   return (
     <ScreenLayout>
-      <Text>{screenName}</Text>
+      <Text>{SCREEN_NAME}</Text>
     </ScreenLayout>
   );
 }

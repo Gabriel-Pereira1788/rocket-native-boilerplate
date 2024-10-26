@@ -1,18 +1,30 @@
-import { SignUpUseCase } from '@domain';
+import { AuthServiceDomain } from '@domain';
+import { ToasterService } from '@services';
 import { act, fireEvent, render, renderHook } from '@test';
 
 import { FormInput } from '@components';
 
+import {
+  PLACEHOLDER_EMAIL,
+  PLACEHOLDER_NAME,
+  PLACEHOLDER_PASSWORD,
+} from '../constants';
 import { SignUpController, useSignUpController } from '../signup.controller';
 
 const mockNavigate = jest.fn();
-const mockSignUp = jest.fn();
-const mockSignUpUseCase: SignUpUseCase = {
-  signUp: mockSignUp,
-  loading: false,
-  isSuccess: false,
-  isError: false,
+
+const mockAuthServiceDomain: AuthServiceDomain = {
+  signIn: jest.fn(),
+  signUp: jest.fn(),
 };
+const mockToasterService: ToasterService = {
+  error: jest.fn(),
+  hide: jest.fn(),
+  show: jest.fn(),
+  success: jest.fn(),
+  warning: jest.fn(),
+};
+
 jest.mock('@react-navigation/native', () => ({
   useNavigation: () => ({
     navigate: mockNavigate,
@@ -21,20 +33,33 @@ jest.mock('@react-navigation/native', () => ({
 
 function renderInputsForControl(controlForm: SignUpController['controlForm']) {
   const emailRender = render(
-    <FormInput control={controlForm} placeholder="Email" name="email" />,
+    <FormInput
+      control={controlForm}
+      placeholder={PLACEHOLDER_EMAIL}
+      name="email"
+    />,
   );
 
   const passwordRender = render(
-    <FormInput control={controlForm} placeholder="Password" name="password" />,
+    <FormInput
+      control={controlForm}
+      placeholder={PLACEHOLDER_PASSWORD}
+      name="password"
+    />,
   );
 
   const usernameRender = render(
-    <FormInput control={controlForm} placeholder="Name" name="username" />,
+    <FormInput
+      control={controlForm}
+      placeholder={PLACEHOLDER_NAME}
+      name="username"
+    />,
   );
 
-  const inputEmail = emailRender.getByPlaceholderText('Email');
-  const inputPassword = passwordRender.getByPlaceholderText('Password');
-  const inputName = usernameRender.getByPlaceholderText('Name');
+  const inputEmail = emailRender.getByPlaceholderText(PLACEHOLDER_EMAIL);
+  const inputPassword =
+    passwordRender.getByPlaceholderText(PLACEHOLDER_PASSWORD);
+  const inputName = usernameRender.getByPlaceholderText(PLACEHOLDER_NAME);
 
   return {
     inputEmail,
@@ -42,11 +67,17 @@ function renderInputsForControl(controlForm: SignUpController['controlForm']) {
     inputName,
   };
 }
+
+beforeAll(() => {
+  jest.useFakeTimers();
+});
+
 describe('SignUpController', () => {
   it('should be run navigate function with Login parameter.', () => {
     const { result } = renderHook(() =>
       useSignUpController({
-        signUpUseCase: mockSignUpUseCase,
+        authServiceDomain: mockAuthServiceDomain,
+        toasterService: mockToasterService,
       }),
     );
 
@@ -57,7 +88,8 @@ describe('SignUpController', () => {
   it('should be render inputs and use controlForm.', () => {
     const { result } = renderHook(() =>
       useSignUpController({
-        signUpUseCase: mockSignUpUseCase,
+        authServiceDomain: mockAuthServiceDomain,
+        toasterService: mockToasterService,
       }),
     );
     const { inputEmail, inputPassword, inputName } = renderInputsForControl(
@@ -81,7 +113,8 @@ describe('SignUpController', () => {
   it('should be dispatch submit function', async () => {
     const { result } = renderHook(() =>
       useSignUpController({
-        signUpUseCase: mockSignUpUseCase,
+        authServiceDomain: mockAuthServiceDomain,
+        toasterService: mockToasterService,
       }),
     );
     const { inputEmail, inputPassword, inputName } = renderInputsForControl(
@@ -101,6 +134,6 @@ describe('SignUpController', () => {
       result.current.onSubmit();
     });
 
-    expect(mockSignUp).toHaveBeenCalled();
+    expect(mockAuthServiceDomain.signUp).toHaveBeenCalled();
   });
 });

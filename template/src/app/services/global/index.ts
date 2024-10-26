@@ -1,2 +1,2 @@
 export * from './Global';
-export * from './toaster';
+export * from '../toaster';

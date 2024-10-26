@@ -1,15 +1,24 @@
 import { useEffect, useState } from 'react';
 
-import { GetRepoFollowersUseCase, GitHubFollower } from '@domain';
+import {
+  GitHubFollower,
+  GitRepoServiceDomain,
+  useGetRepoFollowers,
+} from '@domain';
 import { useNavigation } from '@react-navigation/native';
 
+import { mergeListData } from './library';
+
 type HomeControllerProps = {
-  getRepoFollowersUseCase: GetRepoFollowersUseCase;
+  gitRepoServiceDomain: GitRepoServiceDomain;
 };
 
 export function useHomeController({
-  getRepoFollowersUseCase,
+  gitRepoServiceDomain,
 }: HomeControllerProps) {
+  const { refresh, getMore, data, isLoading, refreshing, loadingNextPage } =
+    useGetRepoFollowers(gitRepoServiceDomain.getRepoFollowersStarGazers);
+
   const [followers, setFollowers] = useState<GitHubFollower[]>([]);
 
   const navigation = useNavigation();
@@ -18,33 +27,21 @@ export function useHomeController({
     navigation.navigate('FollowerDetailsScreen', { id: followerId });
   }
 
-  async function onRefresh() {
-    getRepoFollowersUseCase.refresh();
-  }
-
-  async function fetchNextPage() {
-    getRepoFollowersUseCase.getMore();
-  }
-
   useEffect(() => {
-    if (getRepoFollowersUseCase.data) {
-      const newList = getRepoFollowersUseCase.data.pages.reduce<
-        GitHubFollower[]
-      >((acc, curr) => {
-        return [...acc, ...curr.data];
-      }, []);
-
-      setFollowers(newList);
+    if (data) {
+      const newListData = mergeListData(data);
+      setFollowers(newListData);
     }
-  }, [getRepoFollowersUseCase.data]);
+  }, [data]);
 
   return {
     followers,
-    isLoading: getRepoFollowersUseCase.isLoading,
-    refreshing: getRepoFollowersUseCase.refreshing,
+    isLoading: isLoading,
+    refreshing: refreshing,
     redirectToFollowerScreen,
-    fetchNextPage,
-    onRefresh,
+    fetchNextPage: getMore,
+    onRefresh: refresh,
+    loadingNextPage,
   };
 }
 

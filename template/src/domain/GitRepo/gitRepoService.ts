@@ -1,5 +1,6 @@
 import { gitRepoAdapter } from './gitRepoAdapter';
 import { gitRepoGateway } from './gitRepoGateway';
+import { GitRepoServiceDomain } from './gitRepoTypes';
 
 async function getRepoFollowersStarGazers(page: number) {
   const starGazersList = await gitRepoGateway.getRepoStarGazers({
@@ -23,7 +24,9 @@ async function getFollowerDetails(id: number) {
   return gitRepoAdapter.toGitHubFollower(followerData);
 }
 
-export const gitRepoService = {
-  getRepoFollowersStarGazers,
-  getFollowerDetails,
-};
+export function GitRepoServiceFactory(): GitRepoServiceDomain {
+  return {
+    getRepoFollowersStarGazers,
+    getFollowerDetails,
+  };
+}

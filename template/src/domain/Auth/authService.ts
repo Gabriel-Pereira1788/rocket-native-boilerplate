@@ -16,4 +16,11 @@ async function signUp(
   return authAdapter.toUser(userData);
 }
 
-export const authService = { signIn, signUp };
+export function AuthServiceFactory() {
+  return {
+    signIn,
+    signUp,
+  };
+}
+
+export type AuthServiceDomain = ReturnType<typeof AuthServiceFactory>;

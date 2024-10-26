@@ -58,6 +58,16 @@ module.exports = function (plop) {
         },
         {
           type: 'add',
+          path: 'src/app/screens/{{lowerCase type}}/{{pascalCase name}}/constants/index.ts',
+          templateFile: 'plop-generator/templates/screen/constants/index.hbs',
+        },
+        {
+          type: 'add',
+          path: 'src/app/screens/{{lowerCase type}}/{{pascalCase name}}/components/index.ts',
+          templateFile: 'plop-generator/templates/screen/components/index.hbs',
+        },
+        {
+          type: 'add',
           path: 'src/app/screens/{{lowerCase type}}/{{pascalCase name}}/index.ts',
           templateFile: 'plop-generator/templates/screen/index.hbs',
         },

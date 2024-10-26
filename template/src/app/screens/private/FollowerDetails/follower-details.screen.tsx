@@ -1,4 +1,4 @@
-import { useGetFollowerDetails } from '@domain';
+import { GitRepoServiceFactory } from '@domain';
 import { AppScreenProps } from '@router';
 
 import { useFollowerDetailsController } from './follower-details.controller';
@@ -7,9 +7,11 @@ import { FollowerDetailsView } from './follower-details.view';
 export function FollowerDetailsScreen({
   route,
 }: AppScreenProps<'FollowerDetailsScreen'>) {
-  const getFollowerDetailsUseCase = useGetFollowerDetails(route.params.id);
+  const gitRepoServiceDomain = GitRepoServiceFactory();
+
   const controller = useFollowerDetailsController({
-    getFollowerDetailsUseCase,
+    gitRepoServiceDomain,
+    id: route.params.id,
   });
 
   return <FollowerDetailsView controller={controller} />;

@@ -1,3 +1,4 @@
+import '@shopify/flash-list/jestSetup';
 import mockSafeAreaContext from 'react-native-safe-area-context/jest/mock';
 
 import 'react-native-gesture-handler/jestSetup';

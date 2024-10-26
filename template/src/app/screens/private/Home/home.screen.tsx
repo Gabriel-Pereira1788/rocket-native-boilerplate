@@ -1,11 +1,11 @@
-import { useGetRepoFollowers } from '@domain';
+import { GitRepoServiceFactory } from '@domain';
 
 import { useHomeController } from './home.controller';
 import { HomeView } from './home.view';
 
 export function HomeScreen() {
-  const getRepoFollowersUseCase = useGetRepoFollowers();
-  const controller = useHomeController({ getRepoFollowersUseCase });
+  const gitRepoServiceDomain = GitRepoServiceFactory();
+  const controller = useHomeController({ gitRepoServiceDomain });
 
   return <HomeView controller={controller} />;
 }

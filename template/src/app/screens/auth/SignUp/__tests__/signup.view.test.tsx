@@ -1,6 +1,13 @@
 import { fireEvent, render, renderHook, screen } from '@test';
 import { useForm } from 'react-hook-form';
 
+import {
+  ACTION_PROMPT_TEXT,
+  BUTTON_SIGN_UP_TEXT,
+  PLACEHOLDER_EMAIL,
+  PLACEHOLDER_NAME,
+  PLACEHOLDER_PASSWORD,
+} from '../constants';
 import { SignUpSchema } from '../library/signUpSchema';
 import { SignUpController } from '../signup.controller';
 import { SignUpView } from '../signup.view';
@@ -37,11 +44,11 @@ function customRender() {
   );
 
   return {
-    inputName: screen.getByPlaceholderText('Name'),
-    inputEmail: screen.getByPlaceholderText('Email'),
-    inputPassword: screen.getByPlaceholderText('Password'),
-    buttonSubmit: screen.getByText('Sign Up'),
-    buttonRedirectToLogin: screen.getByText('Sign In'),
+    inputName: screen.getByPlaceholderText(PLACEHOLDER_NAME),
+    inputEmail: screen.getByPlaceholderText(PLACEHOLDER_EMAIL),
+    inputPassword: screen.getByPlaceholderText(PLACEHOLDER_PASSWORD),
+    buttonSubmit: screen.getByText(BUTTON_SIGN_UP_TEXT),
+    buttonRedirectToLogin: screen.getByText(ACTION_PROMPT_TEXT),
     goBackButton: screen.getByTestId('go-back-button'),
   };
 }

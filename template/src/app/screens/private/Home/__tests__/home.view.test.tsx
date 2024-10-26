@@ -17,7 +17,7 @@ function customRender(customController: HomeController) {
   render(<HomeView controller={customController} />);
 
   return {
-    homeLoadingElement: screen.queryByTestId('home-loading-element'),
+    homeLoadingElement: screen.queryByTestId('infinity-scroll-loading-element'),
     emptyTextElement: screen.queryByText('Empty Data'),
     headerTitleElement: screen.queryByText(HOME_HEADER_TITLE),
     headerSubtitleElement: screen.queryByText(HOME_HEADER_SUBTITLE),
@@ -29,6 +29,7 @@ describe('<HomeView />', () => {
   it('should be render activity indicator', () => {
     const controller: HomeController = {
       isLoading: true,
+      loadingNextPage: false,
       fetchNextPage: jest.fn(),
       followers: [],
       redirectToFollowerScreen: jest.fn(),
@@ -43,10 +44,12 @@ describe('<HomeView />', () => {
   it('should be render header title and subtitle elements', () => {
     const controller: HomeController = {
       isLoading: false,
+      loadingNextPage: false,
+      onRefresh: jest.fn(),
+      refreshing: false,
+      fetchNextPage: jest.fn(),
       followers: [],
       redirectToFollowerScreen: jest.fn(),
-      refreshing: false,
-      onRefresh: jest.fn(),
     };
     const { headerTitleElement, headerSubtitleElement } =
       customRender(controller);
@@ -58,6 +61,7 @@ describe('<HomeView />', () => {
   it('should be render followers cards correctly', () => {
     const controller: HomeController = {
       refreshing: false,
+      loadingNextPage: false,
       fetchNextPage: jest.fn(),
       onRefresh: jest.fn(),
       isLoading: false,
@@ -90,6 +94,7 @@ describe('<HomeView />', () => {
     const controller: HomeController = {
       fetchNextPage: jest.fn(),
       isLoading: false,
+      loadingNextPage: false,
       followers: [],
       redirectToFollowerScreen: jest.fn(),
       refreshing: false,
@@ -103,6 +108,7 @@ describe('<HomeView />', () => {
   it('should be call press function correctly', () => {
     const controller: HomeController = {
       isLoading: false,
+      loadingNextPage: false,
       fetchNextPage: jest.fn(),
       followers: [
         {
@@ -125,6 +131,7 @@ describe('<HomeView />', () => {
   it('should be render refresh loading', async () => {
     const controller: HomeController = {
       isLoading: false,
+      loadingNextPage: false,
       fetchNextPage: jest.fn(),
       followers: [
         {

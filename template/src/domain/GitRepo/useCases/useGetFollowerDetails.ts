@@ -1,12 +1,15 @@
 import { QueryKeys } from '@infra';
 import { useQuery } from '@tanstack/react-query';
 
-import { gitRepoService } from '../gitRepoService';
+import { GitRepoServiceDomain } from '../gitRepoTypes';
 
-export function useGetFollowerDetails(id: number) {
+export function useGetFollowerDetails(
+  id: number,
+  getFollowerDetails: GitRepoServiceDomain['getFollowerDetails'],
+) {
   const { data, isPending, isError } = useQuery({
     queryKey: [QueryKeys.GetFollowerDetails, id],
-    queryFn: () => gitRepoService.getFollowerDetails(id),
+    queryFn: () => getFollowerDetails(id),
   });
 
   return {
@@ -15,7 +18,3 @@ export function useGetFollowerDetails(id: number) {
     isError,
   };
 }
-
-export type GetFollowerDetailsUseCase = ReturnType<
-  typeof useGetFollowerDetails
->;

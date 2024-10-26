@@ -3,6 +3,14 @@ import { AuthScreenLayout } from '@shared';
 
 import { FormInput, FormInputPassword } from '@components';
 
+import {
+  ACTION_PROMPT_MESSAGE,
+  ACTION_PROMPT_TEXT,
+  BUTTON_LOGIN_TEXT,
+  LOGIN_TITLE,
+  PLACEHOLDER_EMAIL,
+  PLACEHOLDER_PASSWORD,
+} from './constants';
 import { LoginController } from './login.controller';
 
 type LoginViewProps = {
@@ -12,24 +20,24 @@ type LoginViewProps = {
 export function LoginView({ controller }: LoginViewProps) {
   return (
     <AuthScreenLayout
-      title="Login Your Account"
+      title={LOGIN_TITLE}
       buttonsProps={[
         {
           loading: controller.loadingSubmit,
-          text: 'Login',
+          text: BUTTON_LOGIN_TEXT,
           onPress: controller.onSubmit,
         },
       ]}
       actionPrompt={{
-        message: 'Create new Account?',
+        message: ACTION_PROMPT_MESSAGE,
         action: controller.redirectToSignUpScreen,
-        actionText: 'Sign up',
+        actionText: ACTION_PROMPT_TEXT,
       }}>
       <AnimatedFadeEntrance entrance="up">
         <FormInput
           control={controller.controlForm}
           name="email"
-          placeholder="Email"
+          placeholder={PLACEHOLDER_EMAIL}
           leftIconProps={{
             iconName: 'email',
           }}
@@ -38,7 +46,7 @@ export function LoginView({ controller }: LoginViewProps) {
       <AnimatedFadeEntrance entrance="down">
         <FormInputPassword
           name="password"
-          placeholder="Password"
+          placeholder={PLACEHOLDER_PASSWORD}
           control={controller.controlForm}
         />
       </AnimatedFadeEntrance>

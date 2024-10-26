@@ -54,7 +54,11 @@ export function InfinityScrollList<Data>({
         <View style={{ width: '100%', height: 10 }} />
       )}
       ListFooterComponent={
-        loadingNextPage ? <ActivityIndicator size={15} /> : undefined
+        loadingNextPage ? (
+          <View className="my-4">
+            <ActivityIndicator size={15} />
+          </View>
+        ) : undefined
       }
       refreshControl={
         onRefresh ? (

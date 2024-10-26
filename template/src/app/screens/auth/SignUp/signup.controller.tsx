@@ -1,16 +1,36 @@
-import { SignUpUseCase } from '@domain';
+import { AuthServiceDomain, useAuthSignUp } from '@domain';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useNavigation } from '@react-navigation/native';
+import { ToasterService } from '@services';
 import { useForm } from 'react-hook-form';
 
+import {
+  TOASTER_ERROR_MESSAGE,
+  TOASTER_ERROR_TITLE,
+  TOASTER_SUCCESS_MESSAGE,
+  TOASTER_SUCCESS_TITLE,
+} from './constants';
 import { signUpSchema, SignUpSchema } from './library/signUpSchema';
 
 type SignUpControllerProps = {
-  signUpUseCase: SignUpUseCase;
+  authServiceDomain: AuthServiceDomain;
+  toasterService: ToasterService;
 };
 
-export function useSignUpController({ signUpUseCase }: SignUpControllerProps) {
-  const { signUp, loading } = signUpUseCase;
+export function useSignUpController({
+  authServiceDomain,
+  toasterService,
+}: SignUpControllerProps) {
+  const { signUp, loading } = useAuthSignUp({
+    signUpService: authServiceDomain.signUp,
+    onSuccess: () => {
+      toasterService.success(TOASTER_SUCCESS_TITLE, TOASTER_SUCCESS_MESSAGE);
+    },
+    onError: () => {
+      toasterService.error(TOASTER_ERROR_TITLE, TOASTER_ERROR_MESSAGE);
+    },
+  });
+
   const navigation = useNavigation();
 
   const { control, handleSubmit } = useForm<SignUpSchema>({

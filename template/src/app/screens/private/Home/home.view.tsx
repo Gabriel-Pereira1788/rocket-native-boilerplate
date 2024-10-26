@@ -29,6 +29,7 @@ export function HomeView({ controller }: HomeViewProps) {
         testID="followers-list"
         fetchNextPage={controller.fetchNextPage}
         isLoading={controller.isLoading}
+        loadingNextPage={controller.loadingNextPage}
         data={controller.followers}
         refreshing={controller.refreshing}
         keyExtractor={item => String(item.id)}

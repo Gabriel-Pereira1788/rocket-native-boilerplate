@@ -1,16 +1,25 @@
 import { act, fireEvent, renderScreen, screen } from '@test';
 
 import { AuthStack } from '../../../../router/AuthStack';
+import { SIGN_UP_TITLE } from '../../SignUp/constants';
+import {
+  ACTION_PROMPT_TEXT,
+  BUTTON_LOGIN_TEXT,
+  PLACEHOLDER_EMAIL,
+  PLACEHOLDER_PASSWORD,
+  TOASTER_ERROR_TITLE,
+  TOASTER_SUCCESS_TITLE,
+} from '../constants';
 
 //LOGIN INTEGRATION TEST;
 
 function customRenderScreen() {
   renderScreen(<AuthStack initialRouteName="LoginScreen" />);
   return {
-    inputEmail: screen.getByPlaceholderText('Email'),
-    inputPassword: screen.getByPlaceholderText('Password'),
-    buttonLogin: screen.getByText('Login'),
-    buttonSignUp: screen.getByText('Sign up'),
+    inputEmail: screen.getByPlaceholderText(PLACEHOLDER_EMAIL),
+    inputPassword: screen.getByPlaceholderText(PLACEHOLDER_PASSWORD),
+    buttonLogin: screen.getByText(BUTTON_LOGIN_TEXT),
+    buttonSignUp: screen.getByText(ACTION_PROMPT_TEXT),
   };
 }
 
@@ -26,7 +35,7 @@ describe('<LoginScreen />', () => {
     });
 
     // 2) check render new screen correctly.
-    expect(screen.getByText('Create Your Account')).toBeTruthy();
+    expect(screen.getByText(SIGN_UP_TITLE)).toBeTruthy();
 
     // 3) go back to previous screen
     const goBackButton = screen.getByTestId('go-back-button');
@@ -34,7 +43,7 @@ describe('<LoginScreen />', () => {
     fireEvent.press(goBackButton);
 
     // 4) check render previous screen correctly.
-    const inputEmail = screen.getByPlaceholderText('Email');
+    const inputEmail = screen.getByPlaceholderText(PLACEHOLDER_EMAIL);
     expect(inputEmail).toBeTruthy();
   });
 
@@ -49,10 +58,9 @@ describe('<LoginScreen />', () => {
       fireEvent.press(buttonLogin);
     });
 
-    const SUCCESS_MESSAGE = 'Success';
     await act(() => jest.runAllTimers());
     // 3) verify success message render.
-    expect(screen.getByText(SUCCESS_MESSAGE)).toBeTruthy();
+    expect(screen.getByText(TOASTER_SUCCESS_TITLE)).toBeTruthy();
   });
   it('Flow: should be authenticate user failure.', async () => {
     const { buttonLogin, inputEmail, inputPassword } = customRenderScreen();
@@ -65,9 +73,8 @@ describe('<LoginScreen />', () => {
       fireEvent.press(buttonLogin);
     });
 
-    const ERROR_MESSAGE = 'Invalid credentials';
     await act(() => jest.runAllTimers());
     // 3) verify error message render.
-    expect(screen.getByText(ERROR_MESSAGE)).toBeTruthy();
+    expect(screen.getByText(TOASTER_ERROR_TITLE)).toBeTruthy();
   });
 });

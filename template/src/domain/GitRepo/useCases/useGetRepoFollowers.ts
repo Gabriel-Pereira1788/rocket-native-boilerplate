@@ -1,17 +1,17 @@
 import { QueryKeys } from '@infra';
 import { useInfiniteQuery } from '@tanstack/react-query';
 
-import { gitRepoService } from '../gitRepoService';
-import { GitHubPaginatedResult } from '../gitRepoTypes';
+import { GitHubPaginatedResult, GitRepoServiceDomain } from '../gitRepoTypes';
 
-export function useGetRepoFollowers() {
+export function useGetRepoFollowers(
+  getRepoFollowersStarGazers: GitRepoServiceDomain['getRepoFollowersStarGazers'],
+) {
   const query = useInfiniteQuery({
     initialPageParam: 1,
     queryKey: [QueryKeys.GetRepoFollowers],
     getNextPageParam: (lastPage: GitHubPaginatedResult) =>
       lastPage.hasNextPage ? lastPage.nextPage : null,
-    queryFn: ({ pageParam = 1 }) =>
-      gitRepoService.getRepoFollowersStarGazers(pageParam),
+    queryFn: ({ pageParam = 1 }) => getRepoFollowersStarGazers(pageParam),
   });
 
   return {

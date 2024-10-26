@@ -2,6 +2,16 @@ import { render, screen } from '@test';
 
 import { {{pascalCase name}}Controller } from '../{{kebabCase name}}.controller';
 import { {{pascalCase name}}View } from '../{{kebabCase name}}.view';
+import { SCREEN_NAME } from '../constants';
+
+const mockGoBack = jest.fn();
+jest.mock('@react-navigation/native', () => {
+  return {
+    useNavigation: () => ({
+      goBack: mockGoBack,
+   }),
+  };
+});
 
 const controller: {{pascalCase name}}Controller = {};
 
@@ -9,7 +19,7 @@ function customRender() {
   render(<{{pascalCase name}}View controller={controller} />);
 
   return {
-    element: screen.getByTestId(''),
+    element: screen.getByText(SCREEN_NAME),
   };
 }
 

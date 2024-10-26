@@ -2,6 +2,7 @@ import { Text } from 'react-native';
 
 import { ScreenLayout } from '@shared';
 
+import { SCREEN_NAME } from './constants';
 import { SettingsController } from './settings.controller';
 
 type SettingsViewProps = {
@@ -9,10 +10,9 @@ type SettingsViewProps = {
 };
 
 export function SettingsView({ controller }: SettingsViewProps) {
-  const screenName = 'Settings';
   return (
     <ScreenLayout>
-      <Text>{screenName}</Text>
+      <Text>{SCREEN_NAME}</Text>
     </ScreenLayout>
   );
 }

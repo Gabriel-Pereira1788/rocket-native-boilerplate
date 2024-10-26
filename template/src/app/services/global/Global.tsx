@@ -1,6 +1,6 @@
 import { Toaster } from '@components';
 
-import { toasterRefGlobal } from './toaster/toasterService';
+import { toasterRefGlobal } from '../toaster';
 
 export function Global() {
   return (

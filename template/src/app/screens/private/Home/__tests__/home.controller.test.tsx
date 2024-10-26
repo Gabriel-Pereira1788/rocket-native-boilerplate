@@ -1,4 +1,4 @@
-import { GetRepoFollowersUseCase } from '@domain';
+import { GitRepoServiceDomain } from '@domain';
 import { QueryKeys } from '@infra';
 import { QueryClient } from '@tanstack/react-query';
 import { act, renderHook } from '@test';
@@ -25,13 +25,24 @@ const queryClient = new QueryClient({
   },
 });
 
-const mockGetRepoFollowersUseCase: GetRepoFollowersUseCase = {
-  followers: [],
-  isError: false,
-  loading: false,
-  refetching: false,
+const mockGitRepoService: GitRepoServiceDomain = {
+  getFollowerDetails: jest.fn(),
+  getRepoFollowersStarGazers: async () => {
+    return {
+      data: [
+        {
+          id: 1,
+          username: 'johndoe-123',
+          fullname: 'John Doe',
+          bio: 'bio test',
+          avatarUrl: 'http://www.avatar.com',
+        },
+      ],
+      hasNextPage: false,
+      nextPage: 0,
+    };
+  },
 };
-
 afterAll(() => {
   queryClient.clear();
 });
@@ -40,13 +51,12 @@ describe('HomeController', () => {
   it('should be render hook correctly', () => {
     const { result } = renderHook(() =>
       useHomeController({
-        getRepoFollowersUseCase: mockGetRepoFollowersUseCase,
+        gitRepoServiceDomain: mockGitRepoService,
       }),
     );
 
-    expect(result.current.followers?.length).toEqual(
-      mockGetRepoFollowersUseCase.followers?.length,
-    );
+    console.log('RESULT', result.current.followers);
+    expect(result.current.followers?.length).toEqual(0);
   });
 
   it('should be return loading state correctly', () => {

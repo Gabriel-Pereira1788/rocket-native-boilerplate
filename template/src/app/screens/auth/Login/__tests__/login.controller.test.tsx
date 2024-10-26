@@ -1,17 +1,25 @@
-import { SignInUseCase } from '@domain';
+import { AuthServiceDomain } from '@domain';
+import { ToasterService } from '@services';
 import { act, fireEvent, render, renderHook } from '@test';
 
 import { FormInput } from '@components';
 
+import { PLACEHOLDER_EMAIL, PLACEHOLDER_PASSWORD } from '../constants';
 import { LoginController, useLoginController } from '../login.controller';
 
 const mockNavigate = jest.fn();
-const mockSignIn = jest.fn();
-const mockSignInUseCase: SignInUseCase = {
-  signIn: mockSignIn,
-  isError: false,
-  isSuccess: false,
-  loading: false,
+
+const mockSetCredentials = jest.fn();
+const mockAuthServiceDomain: AuthServiceDomain = {
+  signIn: jest.fn(),
+  signUp: jest.fn(),
+};
+const mockToasterService: ToasterService = {
+  error: jest.fn(),
+  hide: jest.fn(),
+  show: jest.fn(),
+  success: jest.fn(),
+  warning: jest.fn(),
 };
 
 jest.mock('@react-navigation/native', () => ({
@@ -20,24 +28,21 @@ jest.mock('@react-navigation/native', () => ({
   }),
 }));
 
-jest.mock('@domain', () => {
-  const originalModule = jest.requireActual('@domain');
-  return {
-    ...originalModule,
-    useAuthSignIn: () => ({
-      signIn: mockSignIn,
-      loading: false,
-    }),
-  };
-});
-
 function renderInputsForControl(controlForm: LoginController['controlForm']) {
   const emailRender = render(
-    <FormInput control={controlForm} placeholder="Email" name="email" />,
+    <FormInput
+      control={controlForm}
+      placeholder={PLACEHOLDER_EMAIL}
+      name="email"
+    />,
   );
 
   const passwordRender = render(
-    <FormInput control={controlForm} placeholder="Password" name="password" />,
+    <FormInput
+      control={controlForm}
+      placeholder={PLACEHOLDER_PASSWORD}
+      name="password"
+    />,
   );
 
   const inputEmail = emailRender.getByPlaceholderText('Email');
@@ -49,10 +54,18 @@ function renderInputsForControl(controlForm: LoginController['controlForm']) {
   };
 }
 
+beforeAll(() => {
+  jest.useFakeTimers();
+});
+
 describe('useLoginController', () => {
   it('should be run navigate function with SignUp parameter.', () => {
     const { result } = renderHook(() =>
-      useLoginController({ signInUseCase: mockSignInUseCase }),
+      useLoginController({
+        authServiceDomain: mockAuthServiceDomain,
+        toasterService: mockToasterService,
+        setCredentials: mockSetCredentials,
+      }),
     );
 
     result.current.redirectToSignUpScreen();
@@ -61,7 +74,11 @@ describe('useLoginController', () => {
 
   it('should be render inputs and use controlForm.', () => {
     const { result } = renderHook(() =>
-      useLoginController({ signInUseCase: mockSignInUseCase }),
+      useLoginController({
+        authServiceDomain: mockAuthServiceDomain,
+        toasterService: mockToasterService,
+        setCredentials: mockSetCredentials,
+      }),
     );
     const { inputEmail, inputPassword } = renderInputsForControl(
       result.current.controlForm,
@@ -80,7 +97,11 @@ describe('useLoginController', () => {
 
   it('should be dispatch submit function', async () => {
     const { result } = renderHook(() =>
-      useLoginController({ signInUseCase: mockSignInUseCase }),
+      useLoginController({
+        authServiceDomain: mockAuthServiceDomain,
+        toasterService: mockToasterService,
+        setCredentials: mockSetCredentials,
+      }),
     );
     const { inputEmail, inputPassword } = renderInputsForControl(
       result.current.controlForm,
@@ -97,6 +118,6 @@ describe('useLoginController', () => {
       result.current.onSubmit();
     });
 
-    expect(mockSignIn).toHaveBeenCalled();
+    expect(mockAuthServiceDomain.signIn).toHaveBeenCalled();
   });
 });

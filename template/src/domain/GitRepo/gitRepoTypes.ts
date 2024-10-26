@@ -1,3 +1,8 @@
+export type GitRepoServiceDomain = {
+  getFollowerDetails(id: number): Promise<GitHubFollower>;
+  getRepoFollowersStarGazers(page: number): Promise<GitHubPaginatedResult>;
+};
+
 export interface GitHubFollowerApi {
   login: string;
   id: number;
