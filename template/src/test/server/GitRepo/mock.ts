@@ -5,6 +5,8 @@ export const mockListGitRepoFollowers: GitHubFollowerApi[] = [
     login: 'John-Doe',
     id: 12345,
     node_id: '1234-y2g',
+    bio: 'bio',
+    name: 'John Doe',
     avatar_url: 'https://example.com',
     gravatar_id: '',
     url: 'https://example.com',

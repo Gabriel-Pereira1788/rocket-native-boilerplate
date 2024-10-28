@@ -10,7 +10,7 @@ export function useGetRepoFollowers(
     initialPageParam: 1,
     queryKey: [QueryKeys.GetRepoFollowers],
     getNextPageParam: (lastPage: GitHubPaginatedResult) =>
-      lastPage.hasNextPage ? lastPage.nextPage : null,
+      lastPage?.hasNextPage ? lastPage.nextPage : null,
     queryFn: ({ pageParam = 1 }) => getRepoFollowersStarGazers(pageParam),
   });
 

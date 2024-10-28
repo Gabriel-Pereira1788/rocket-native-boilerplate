@@ -91,4 +91,4 @@ export function customRenderHook<Result, Props>(
 export { customRenderScreen as renderScreen };
 export { customRenderHook as renderHook };
 export { customRender as render };
-export * from '@testing-library/react-native';
+export { screen, act, fireEvent, waitFor } from '@testing-library/react-native';

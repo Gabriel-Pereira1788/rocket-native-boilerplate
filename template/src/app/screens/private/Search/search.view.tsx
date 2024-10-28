@@ -2,6 +2,7 @@ import { Text } from 'react-native';
 
 import { ScreenLayout } from '@shared';
 
+import { SCREEN_NAME } from './constants';
 import { SearchController } from './search.controller';
 
 type SearchViewProps = {
@@ -9,10 +10,9 @@ type SearchViewProps = {
 };
 
 export function SearchView({ controller }: SearchViewProps) {
-  const screenName = 'Search';
   return (
     <ScreenLayout>
-      <Text>{screenName}</Text>
+      <Text>{SCREEN_NAME}</Text>
     </ScreenLayout>
   );
 }
