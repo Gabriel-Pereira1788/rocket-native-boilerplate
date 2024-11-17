@@ -1,7 +1,8 @@
 import React from 'react';
-import { Text, TouchableOpacity } from 'react-native';
 
 import { Icon, IconProps } from '../Icon';
+import { TouchableOpacityBox } from '../TouchableOpacityBox/TouchableOpacityBox';
+import { Text } from '../Text/Text';
 
 type DrawerItemProps = {
   label: string;
@@ -11,13 +12,17 @@ type DrawerItemProps = {
 
 export function DrawerItem({ label, iconName, onPress }: DrawerItemProps) {
   return (
-    <TouchableOpacity
+    <TouchableOpacityBox
       activeOpacity={0.8}
-      className="flex-row w-full items-center"
-      onPress={onPress}
-      style={{ gap: 10 }}>
+      boxProps={{
+        flexDirection: 'row',
+        width: '100%',
+        alignItems: 'center',
+        gap: 'sp10',
+      }}
+      onPress={onPress}>
       <Icon iconName={iconName} size={30} color="#475569" />
-      <Text className="text-lg text-slate-800 font-semibold">{label}</Text>
-    </TouchableOpacity>
+      <Text preset="semiBold/16" text={label} />
+    </TouchableOpacityBox>
   );
 }

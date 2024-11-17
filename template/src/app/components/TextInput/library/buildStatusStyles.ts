@@ -1,12 +1,21 @@
+import { BoxProps } from '../../Box/Box';
 import { InputStatus } from '../types';
-export function buildStatusStyles(status: InputStatus) {
+
+export function buildStatusStyles(status: InputStatus): BoxProps {
   switch (status) {
     case 'error':
-      return 'bg-white border-2 border-red-500';
+      return {
+        bg: 'neutralWhite',
+        borderColor: 'feedbackError',
+        borderWidth: 2,
+      };
     case 'disabled':
-      return 'border-gray-300';
-
+      return {
+        borderColor: 'neutralGray300',
+      };
     default:
-      return 'bg-white';
+      return {
+        bg: 'neutralWhite',
+      };
   }
 }

@@ -1,16 +1,26 @@
-import { Text, View } from 'react-native';
-
 import { HOME_HEADER_SUBTITLE, HOME_HEADER_TITLE } from '../constants';
+import { Box, Text } from '@components';
 
 export function HomeScreenListHeader() {
   return (
-    <View className="w-full my-2">
-      <Text className="text-3xl px-2 -tracking-widest font-bold  text-left text-slate-800">
-        {HOME_HEADER_TITLE}
-      </Text>
-      <View className="w-full items-start justify-center p-4">
-        <Text className="font-semibold text-base">{HOME_HEADER_SUBTITLE}</Text>
-      </View>
-    </View>
+    <Box width={'100%'} my="sp5">
+      <Box px="sp10">
+        <Text
+          preset="bold/30"
+          letterSpacing={1.2}
+          align="left"
+          color="textPrimary"
+          text={HOME_HEADER_TITLE}
+        />
+      </Box>
+
+      <Box
+        width={'100%'}
+        alignItems="flex-start"
+        justifyContent="center"
+        padding="sp15">
+        <Text preset="semiBold/16" text={HOME_HEADER_SUBTITLE} />
+      </Box>
+    </Box>
   );
 }

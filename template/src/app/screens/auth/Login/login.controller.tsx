@@ -35,6 +35,7 @@ export function useLoginController({
       toasterService.error(TOASTER_ERROR_TITLE, TOASTER_ERROR_MESSAGE);
     },
   });
+
   const navigation = useNavigation();
 
   const { control, handleSubmit } = useForm<LoginSchema>({

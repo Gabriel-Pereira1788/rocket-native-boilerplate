@@ -3,6 +3,8 @@ import React from 'react';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { GestureHandlerRootView } from 'react-native-gesture-handler';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
+import { ThemeProvider } from '@shopify/restyle';
+import { theme } from '@styles';
 
 type RootProviderProps = {
   queryClient: QueryClient;
@@ -11,9 +13,11 @@ export function RootProvider({ children, queryClient }: RootProviderProps) {
   return (
     <SafeAreaProvider>
       <QueryClientProvider client={queryClient}>
-        <GestureHandlerRootView style={{ flex: 1 }}>
-          {children}
-        </GestureHandlerRootView>
+        <ThemeProvider theme={theme}>
+          <GestureHandlerRootView style={{ flex: 1 }}>
+            {children}
+          </GestureHandlerRootView>
+        </ThemeProvider>
       </QueryClientProvider>
     </SafeAreaProvider>
   );

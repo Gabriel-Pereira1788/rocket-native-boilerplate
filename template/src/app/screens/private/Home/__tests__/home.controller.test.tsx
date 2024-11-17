@@ -123,7 +123,6 @@ describe('HomeController', () => {
       await result.current.onRefresh();
     });
 
-    console.log('RESULT', result.current);
     await waitFor(() => expect(true).toBeTruthy());
   });
 });

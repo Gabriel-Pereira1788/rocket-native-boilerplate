@@ -5,10 +5,11 @@ import { AppTabParamList } from '@router';
 
 import { FooterTabItem } from './FooterTabItem';
 import { buildTabItem } from './library';
+import { Box } from '../Box/Box';
 
 export function FooterTabBar({ state, navigation }: BottomTabBarProps) {
   return (
-    <View className=" flex-row pt-4 bg-slate-50 shadow-md">
+    <Box flexDirection="row" pt="sp10" backgroundColor="background">
       {state.routes.map((route, index) => {
         const tabItem = buildTabItem(route.name as keyof AppTabParamList);
         const isFocused = state.index === index;
@@ -34,6 +35,6 @@ export function FooterTabBar({ state, navigation }: BottomTabBarProps) {
           />
         );
       })}
-    </View>
+    </Box>
   );
 }

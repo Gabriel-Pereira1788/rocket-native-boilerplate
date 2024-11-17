@@ -1,10 +1,3 @@
-/**
- * Sample React Native App
- * https://github.com/facebook/react-native
- *
- * @format
- */
-
 import React, { useState } from 'react';
 import { StatusBar, useColorScheme, View } from 'react-native';
 
@@ -15,6 +8,7 @@ import { RootProvider } from './providers';
 import { Routes } from './router';
 import { Global, settingsService } from './services';
 import { AnimatedSplashScreen } from './splash-screen/AnimatedSplashScreen';
+import { palette } from './styles/palette';
 
 function App(): React.JSX.Element {
   const isDarkMode = useColorScheme() === 'dark';
@@ -35,8 +29,9 @@ function App(): React.JSX.Element {
       />
     );
   }
+
   return (
-    <View className="flex-1 bg-slate-50">
+    <View style={{ flex: 1, backgroundColor: palette.background }}>
       <StatusBar
         barStyle={isDarkMode ? 'light-content' : 'dark-content'}
         backgroundColor={backgroundStyle.backgroundColor}

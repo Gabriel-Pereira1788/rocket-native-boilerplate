@@ -1,14 +1,11 @@
 import React from 'react';
-import {
-  ActivityIndicator,
-  Text,
-  TouchableOpacity,
-  TouchableOpacityProps,
-} from 'react-native';
+import { ActivityIndicator, TouchableOpacityProps } from 'react-native';
 
 import { If } from '@helpers';
 
 import { buildVariant } from './library';
+import { TouchableOpacityBox } from '../TouchableOpacityBox/TouchableOpacityBox';
+import { Text } from '../Text/Text';
 
 export type ButtonProps = {
   text: string;
@@ -23,25 +20,26 @@ export function Button({
   ...touchableOpacityProps
 }: ButtonProps) {
   const _variant = buildVariant(variant);
-  const _loadingStyle = loading ? ' opacity-70' : '';
 
   return (
-    <TouchableOpacity
-      {...touchableOpacityProps}
+    <TouchableOpacityBox
+      boxProps={{
+        borderRadius: 'rd8',
+        alignItems: 'center',
+        justifyContent: 'center',
+        opacity: loading ? 0.7 : 1,
+        ..._variant.container,
+      }}
       activeOpacity={0.8}
       disabled={loading}
-      className={
-        'rounded-lg items-center justify-center shadow-lg ' +
-        _variant.container +
-        _loadingStyle
-      }>
+      {...touchableOpacityProps}>
       <If
         condition={!!loading}
         elseRender={
-          <Text className={'text-base ' + _variant.text}>{text}</Text>
+          <Text preset="medium/16" text={text} color={_variant.textColor} />
         }>
         <ActivityIndicator size={20} />
       </If>
-    </TouchableOpacity>
+    </TouchableOpacityBox>
   );
 }

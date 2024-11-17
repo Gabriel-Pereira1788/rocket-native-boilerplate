@@ -10,7 +10,6 @@ async function getRepoStarGazers({
   page = 1,
   perPage = 3,
 }: QueryParams): Promise<GitHubFollowerApi[]> {
-  console.log('REQUEST');
   const response = await ghApi.get<GitHubFollowerApi[]>(
     `repos/Gabriel-Pereira1788/rocket-native-boilerplate/stargazers?page=${page}&per_page=${perPage}`,
   );

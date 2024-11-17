@@ -29,24 +29,24 @@ jest.mock('@react-navigation/native', () => ({
 }));
 
 function renderInputsForControl(controlForm: LoginController['controlForm']) {
-  const emailRender = render(
-    <FormInput
-      control={controlForm}
-      placeholder={PLACEHOLDER_EMAIL}
-      name="email"
-    />,
+  const componentRender = render(
+    <>
+      <FormInput
+        control={controlForm}
+        placeholder={PLACEHOLDER_EMAIL}
+        name="email"
+      />
+      <FormInput
+        control={controlForm}
+        placeholder={PLACEHOLDER_PASSWORD}
+        name="password"
+      />
+    </>,
   );
 
-  const passwordRender = render(
-    <FormInput
-      control={controlForm}
-      placeholder={PLACEHOLDER_PASSWORD}
-      name="password"
-    />,
-  );
-
-  const inputEmail = emailRender.getByPlaceholderText('Email');
-  const inputPassword = passwordRender.getByPlaceholderText('Password');
+  const inputEmail = componentRender.getByPlaceholderText(PLACEHOLDER_EMAIL);
+  const inputPassword =
+    componentRender.getByPlaceholderText(PLACEHOLDER_PASSWORD);
 
   return {
     inputEmail,
@@ -72,7 +72,7 @@ describe('useLoginController', () => {
     expect(mockNavigate).toHaveBeenCalledWith('SignUpScreen');
   });
 
-  it('should be render inputs and use controlForm.', () => {
+  it('should be render inputs and use controlForm.', async () => {
     const { result } = renderHook(() =>
       useLoginController({
         authServiceDomain: mockAuthServiceDomain,
@@ -80,18 +80,21 @@ describe('useLoginController', () => {
         setCredentials: mockSetCredentials,
       }),
     );
+
     const { inputEmail, inputPassword } = renderInputsForControl(
       result.current.controlForm,
     );
-    const email = 'test1234@email.com';
+
+    const email = 'johndoe@email.com';
     const password = 'test1234';
 
     act(() => {
       fireEvent.changeText(inputEmail, email);
+
       fireEvent.changeText(inputPassword, password);
     });
-
     expect(inputEmail.props.value).toEqual(email);
+
     expect(inputPassword.props.value).toEqual(password);
   });
 
@@ -103,9 +106,11 @@ describe('useLoginController', () => {
         setCredentials: mockSetCredentials,
       }),
     );
+
     const { inputEmail, inputPassword } = renderInputsForControl(
       result.current.controlForm,
     );
+
     const email = 'test@gmail.com';
     const password = 'test1234';
 

@@ -14,7 +14,8 @@
       "@helpers": ["src/app/helpers"],
       "@assets": ["src/assets"],
       "@router": ["src/app/router"],
-      "@shared": ["src/app/shared"]
+      "@shared": ["src/app/shared"],
+      "@styles": ["src/app/styles"]
     }
   }
 }

@@ -1,5 +1,4 @@
 import React from 'react';
-import { View } from 'react-native';
 
 import { useAppSafeArea } from '@helpers';
 import { DrawerContentComponentProps } from '@react-navigation/drawer';
@@ -7,6 +6,7 @@ import { AppDrawerParamList } from 'src/app/router/AppDrawerNavigator';
 
 import { DrawerItem } from './DrawerItem';
 import { buildDrawerItem } from './library';
+import { Box } from '../Box/Box';
 
 type DrawerContentProps = {
   signOut: () => void;
@@ -19,7 +19,7 @@ export function DrawerContent({
 }: DrawerContentComponentProps & DrawerContentProps) {
   const { top } = useAppSafeArea();
   return (
-    <View className="pl-7" style={{ paddingTop: top + 10, gap: 25 }}>
+    <Box pl="sp15" style={{ paddingTop: top + 10, gap: 25 }}>
       {state.routes.map(route => {
         const drawerItem = buildDrawerItem(
           route.name as keyof AppDrawerParamList,
@@ -39,6 +39,6 @@ export function DrawerContent({
         );
       })}
       <DrawerItem label="Logout" iconName="doorOpen" onPress={signOut} />
-    </View>
+    </Box>
   );
 }

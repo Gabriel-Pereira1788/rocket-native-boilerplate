@@ -1,7 +1,6 @@
 module.exports = {
   presets: ['module:@react-native/babel-preset'],
   plugins: [
-    'nativewind/babel',
     'react-native-reanimated/plugin',
     [
       'module-resolver',
@@ -21,6 +20,7 @@ module.exports = {
           '@components': './src/app/components',
           '@assets': './src/assets',
           '@shared': './src/app/shared',
+          '@styles': './src/app/styles',
         },
       },
     ],

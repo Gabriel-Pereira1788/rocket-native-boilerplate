@@ -1,9 +1,14 @@
 import React from 'react';
-import { RefreshControl, View } from 'react-native';
+import { RefreshControl } from 'react-native';
 
 import { FlashList, FlashListProps } from '@shopify/flash-list';
 
-import { ActivityIndicator, EmptyLabel, EmptyLabelProps } from '@components';
+import {
+  ActivityIndicator,
+  Box,
+  EmptyLabel,
+  EmptyLabelProps,
+} from '@components';
 
 type InfinityScrollListProps<Data> = {
   isLoading?: boolean;
@@ -32,9 +37,9 @@ export function InfinityScrollList<Data>({
 }: InfinityScrollListProps<Data>) {
   if (isLoading) {
     return (
-      <View className="flex[1] items-center justify-center">
+      <Box flex={1} alignItems="center" justifyContent="center">
         <ActivityIndicator testID="infinity-scroll-loading-element" size={20} />
-      </View>
+      </Box>
     );
   }
   return (
@@ -45,19 +50,19 @@ export function InfinityScrollList<Data>({
       estimatedItemSize={10}
       ListEmptyComponent={
         emptyLabelProps && (
-          <View className="items-center mt-10">
+          <Box alignContent="center" mt="sp40">
             <EmptyLabel {...emptyLabelProps} />
-          </View>
+          </Box>
         )
       }
       ItemSeparatorComponent={() => (
-        <View style={{ width: '100%', height: 10 }} />
+        <Box style={{ width: '100%', height: 10 }} />
       )}
       ListFooterComponent={
         loadingNextPage ? (
-          <View className="my-4">
+          <Box my="sp16">
             <ActivityIndicator size={15} />
-          </View>
+          </Box>
         ) : undefined
       }
       refreshControl={

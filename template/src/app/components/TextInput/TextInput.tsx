@@ -1,14 +1,11 @@
 import React from 'react';
-import {
-  TextInput,
-  View,
-  TextInputProps as RNTextInputProps,
-  Text,
-} from 'react-native';
+import { TextInput, TextInputProps as RNTextInputProps } from 'react-native';
 
 import { If } from '@helpers';
 
 import { buildInputStatus, buildStatusStyles } from './library';
+import { Box } from '../Box/Box';
+import { Text } from '../Text/Text';
 
 export type TextInputProps = {
   LeftElement?: JSX.Element;
@@ -23,33 +20,43 @@ export function Input(props: TextInputProps) {
   const _statusStyles = buildStatusStyles(_status);
 
   return (
-    <View className="w-full" style={{ gap: 5 }}>
-      <View
-        className={
-          'w-full flex-row items-center justify-between px-3 h-16  rounded-xl shadow-lg ' +
-          _statusStyles
-        }>
+    <Box width={'100%'} style={{ gap: 5 }}>
+      <Box
+        width={'100%'}
+        flexDirection="row"
+        alignItems="center"
+        justifyContent="space-between"
+        px="sp10"
+        borderRadius="rd15"
+        height={64}
+        shadowOffset={{ width: 0, height: 1 }}
+        shadowOpacity={0.1}
+        shadowRadius={10}
+        shadowColor={'neutralBlack'}
+        {..._statusStyles}>
         <If condition={!!LeftElement}>
-          <View className="mr-4">{LeftElement}</View>
+          <Box mr="sp15">{LeftElement}</Box>
         </If>
 
         <TextInput
           {...textInputProps}
           placeholderTextColor={'#ACADB9'}
-          className="flex-1"
+          style={{ flex: 1 }}
           autoCapitalize="none"
         />
         <If condition={!!RightElement}>
-          <View>{RightElement}</View>
+          <Box>{RightElement}</Box>
         </If>
-      </View>
+      </Box>
       <If condition={!!errorMessage}>
-        <View className="w-full pl-2">
-          <Text className="font-semibold text-red-500 text-base">
-            {errorMessage}
-          </Text>
-        </View>
+        <Box width={'100%'} pl="sp10">
+          <Text
+            preset="semiBold/16"
+            color="feedbackError"
+            text={errorMessage ?? ''}
+          />
+        </Box>
       </If>
-    </View>
+    </Box>
   );
 }

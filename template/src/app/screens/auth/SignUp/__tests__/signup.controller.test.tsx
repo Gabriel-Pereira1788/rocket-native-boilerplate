@@ -32,34 +32,30 @@ jest.mock('@react-navigation/native', () => ({
 }));
 
 function renderInputsForControl(controlForm: SignUpController['controlForm']) {
-  const emailRender = render(
-    <FormInput
-      control={controlForm}
-      placeholder={PLACEHOLDER_EMAIL}
-      name="email"
-    />,
+  const renderForm = render(
+    <>
+      <FormInput
+        control={controlForm}
+        placeholder={PLACEHOLDER_EMAIL}
+        name="email"
+      />
+      <FormInput
+        control={controlForm}
+        placeholder={PLACEHOLDER_PASSWORD}
+        name="password"
+      />
+      <FormInput
+        control={controlForm}
+        placeholder={PLACEHOLDER_NAME}
+        name="username"
+      />
+      ,
+    </>,
   );
 
-  const passwordRender = render(
-    <FormInput
-      control={controlForm}
-      placeholder={PLACEHOLDER_PASSWORD}
-      name="password"
-    />,
-  );
-
-  const usernameRender = render(
-    <FormInput
-      control={controlForm}
-      placeholder={PLACEHOLDER_NAME}
-      name="username"
-    />,
-  );
-
-  const inputEmail = emailRender.getByPlaceholderText(PLACEHOLDER_EMAIL);
-  const inputPassword =
-    passwordRender.getByPlaceholderText(PLACEHOLDER_PASSWORD);
-  const inputName = usernameRender.getByPlaceholderText(PLACEHOLDER_NAME);
+  const inputEmail = renderForm.getByPlaceholderText(PLACEHOLDER_EMAIL);
+  const inputPassword = renderForm.getByPlaceholderText(PLACEHOLDER_PASSWORD);
+  const inputName = renderForm.getByPlaceholderText(PLACEHOLDER_NAME);
 
   return {
     inputEmail,

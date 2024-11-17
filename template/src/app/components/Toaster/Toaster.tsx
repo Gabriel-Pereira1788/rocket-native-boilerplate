@@ -1,5 +1,4 @@
-import React, { useEffect, useImperativeHandle, useState } from 'react';
-import { Text, View } from 'react-native';
+import React from 'react';
 
 import { AnimatedFadeEntrance } from '@animations';
 import { If } from '@helpers';
@@ -7,6 +6,9 @@ import { If } from '@helpers';
 import { Icon } from '../Icon';
 
 import { buildColor, buildIconName } from './library';
+import { Box } from '../Box/Box';
+import { Text } from '../Text/Text';
+import { useToaster } from './useToaster';
 
 export type ToasterConfig = {
   status: 'success' | 'error' | 'warning';
@@ -20,76 +22,73 @@ export type ToasterRefProps = {
 };
 
 export const Toaster = React.forwardRef<ToasterRefProps, {}>((_, ref) => {
-  const [height, setHeight] = useState(0);
-  const [toasterConfig, setToasterConfig] = useState<ToasterConfig | null>(
-    null,
-  );
-
-  useImperativeHandle(
-    ref,
-    () => ({
-      show,
-      hide,
-    }),
-    [],
-  );
-
-  useEffect(() => {
-    if (toasterConfig) {
-      setTimeout(() => {
-        hide();
-      }, 3000);
-    }
-  }, [toasterConfig]);
+  const { height, toasterConfig, onLayout } = useToaster(ref);
 
   const _iconName = buildIconName(toasterConfig?.status);
-  const _color = buildColor(toasterConfig?.status);
-
-  function show(_toaster: ToasterConfig) {
-    setToasterConfig(_toaster);
-  }
-
-  function hide() {
-    setToasterConfig(null);
-  }
+  const _color = buildColor('success');
 
   return (
-    <View
-      className="self-center mb-5 z-10 w-3/4 relative"
-      style={{ bottom: height }}>
+    <Box
+      alignSelf="center"
+      mb="sp25"
+      zIndex={10}
+      width={'75%'}
+      position="relative"
+      bottom={height}>
       <If condition={!!toasterConfig}>
         <AnimatedFadeEntrance entrance="down">
-          <View
+          <Box
             testID="toast"
-            onLayout={layout => {
-              const _height = layout.nativeEvent.layout.height;
-              setHeight(_height);
-            }}
-            className="absolute z-10   w-full  items-center"
-            style={{ gap: 15 }}>
-            <View
-              className="absolute  w-full h-full rounded-lg "
-              style={{ zIndex: 0, bottom: 3, backgroundColor: _color }}
+            onLayout={onLayout}
+            position="absolute"
+            zIndex={10}
+            width={'100%'}
+            alignItems="center"
+            gap="sp15">
+            <Box
+              position="absolute"
+              width={'100%'}
+              height={'100%'}
+              borderRadius="rd15"
+              zIndex={0}
+              bottom={3}
+              backgroundColor={_color}
             />
-            <View className="w-full h-full bg-slate-100 py-4 px-4 flex-row rounded-lg shadow-lg">
-              <View className="flex-1">
+            <Box
+              width={'100%'}
+              height={'100%'}
+              backgroundColor="background"
+              p="sp12"
+              flexDirection="row"
+              borderRadius="rd12"
+              shadowOffset={{ width: 0, height: 1 }}
+              shadowOpacity={0.1}
+              shadowColor={'neutralBlack'}
+              shadowRadius={1}>
+              <Box flex={1}>
                 <Icon iconName={_iconName!} size={25} color={_color} />
-              </View>
+              </Box>
 
-              <View
-                className="w-full items-center justify-center"
-                style={{ gap: 10 }}>
-                <Text className="text-lg  text-black font-medium">
-                  {toasterConfig?.title}
-                </Text>
-                <Text className="text-slate-500 text-sm">
-                  {toasterConfig?.message}
-                </Text>
-              </View>
-            </View>
-          </View>
+              <Box
+                width={'100%'}
+                alignItems="center"
+                justifyContent="center"
+                gap="sp10">
+                <Text
+                  preset="medium/16"
+                  text={toasterConfig?.title ?? ''}
+                  color="neutralBlack"
+                />
+                <Text
+                  preset="medium/14"
+                  text={toasterConfig?.message ?? ''}
+                  color="textSecondary"
+                />
+              </Box>
+            </Box>
+          </Box>
         </AnimatedFadeEntrance>
       </If>
-    </View>
+    </Box>
   );
 });

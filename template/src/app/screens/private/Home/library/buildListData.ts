@@ -5,7 +5,10 @@ export function mergeListData(
   data: InfiniteData<GitHubPaginatedResult, unknown>,
 ) {
   const newList = data.pages.reduce<GitHubFollower[]>((acc, curr) => {
-    return [...acc, ...curr.data];
+    if (curr && curr.data) {
+      return [...acc, ...curr.data];
+    }
+    return acc;
   }, []);
 
   return newList;

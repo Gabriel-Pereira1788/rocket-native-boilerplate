@@ -1,9 +1,7 @@
-import { View } from 'react-native';
-
 import { If, useAppSafeArea } from '@helpers';
 import { useNavigation } from '@react-navigation/native';
 
-import { IconPress } from '@components';
+import { Box, IconPress } from '@components';
 
 type ScreenLayoutProps = {
   goBack?: boolean;
@@ -18,25 +16,31 @@ export function ScreenLayout({
   const { top } = useAppSafeArea();
 
   return (
-    <View className="flex-1 bg-slate-50">
-      <View className="flex-1 bg-slate-50 px-5" style={{ paddingTop: top }}>
+    <Box flex={1} backgroundColor="background">
+      <Box
+        flex={1}
+        backgroundColor="background"
+        paddingHorizontal="sp17"
+        style={{ paddingTop: top }}>
         <If condition={!!goBack}>
-          <View className="w-full items-start">
+          <Box width={'100%'} alignItems="flex-start">
             <IconPress
               onPress={navigation.goBack}
               iconName="arrowLeft"
               testID="go-back-button"
             />
-          </View>
+          </Box>
         </If>
 
-        <View className="flex-[1] items-center justify-center  w-full">
+        <Box flex={1} alignItems="center" justifyContent="center" width="100%">
           <If condition={!!HeaderElement}>
-            <View className="w-full mb-10">{HeaderElement}</View>
+            <Box width={'100%'} mb="sp28">
+              {HeaderElement}
+            </Box>
           </If>
           {children}
-        </View>
-      </View>
-    </View>
+        </Box>
+      </Box>
+    </Box>
   );
 }

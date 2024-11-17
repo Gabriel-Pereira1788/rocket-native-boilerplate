@@ -1,6 +1,6 @@
-import { Text, View } from 'react-native';
-
 import { Icon, IconProps } from '../Icon';
+import { Box } from '../Box/Box';
+import { Text } from '../Text/Text';
 
 export type EmptyLabelProps = {
   title: string;
@@ -9,10 +9,10 @@ export type EmptyLabelProps = {
 };
 export function EmptyLabel({ title, message, iconName }: EmptyLabelProps) {
   return (
-    <View className="items-center justify-center">
+    <Box alignItems="center" justifyContent="center">
       <Icon iconName={iconName} color="#dddddd" size={100} />
-      <Text className="text-3xl text-slate-800">{title}</Text>
-      <Text className="text-base text-slate-800">{message}</Text>
-    </View>
+      <Text preset="medium/30" text={title} />
+      <Text text={message} />
+    </Box>
   );
 }

@@ -18,9 +18,11 @@ const Drawer = createDrawerNavigator<AppDrawerParamList>();
 
 export function AppDrawerNavigator() {
   const { signOut } = useAuthSignOut();
+
   function renderDrawerContent(props: DrawerContentComponentProps) {
     return <DrawerContent {...props} signOut={signOut} />;
   }
+
   return (
     <Drawer.Navigator
       drawerContent={renderDrawerContent}

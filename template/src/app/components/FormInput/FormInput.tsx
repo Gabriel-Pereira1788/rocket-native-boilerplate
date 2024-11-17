@@ -25,7 +25,9 @@ export function FormInput<TFieldValue extends FieldValues>({
         return (
           <IconTextInput
             errorMessage={fieldState.error?.message || errorMessage}
-            onChangeText={field.onChange}
+            onChangeText={text => {
+              field.onChange(text);
+            }}
             value={field.value}
             {...textInputProps}
           />

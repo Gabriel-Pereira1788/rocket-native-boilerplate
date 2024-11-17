@@ -1,21 +1,40 @@
+import { Theme } from '@styles';
+import { BoxProps } from '../../Box/Box';
 import { ButtonProps } from '../Button';
 
-export function buildVariant(variant: ButtonProps['variant']) {
+export function buildVariant(variant: ButtonProps['variant']): {
+  container: BoxProps;
+  textColor: keyof Theme['colors'];
+} {
   switch (variant) {
     case 'filled':
       return {
-        container: 'bg-zinc-900 h-16 w-full',
-        text: 'text-white',
+        container: {
+          bg: 'primaryMain',
+          height: 64,
+          width: '100%',
+        },
+        textColor: 'neutralWhite',
       };
+
     case 'transparent':
       return {
-        container: 'bg-transparent h-auto w-auto',
-        text: 'text-zinc-500 font-bold',
+        container: {
+          height: 'auto',
+          width: 'auto',
+        },
+        textColor: 'textPrimary',
       };
     default:
       return {
-        container: 'bg-transparent border-2 border-zinc-400 h-16 w-full',
-        text: 'text-zinc-500',
+        container: {
+          borderRadius: 'rd8',
+          borderColor: 'borderLight',
+          borderWidth: 2,
+          height: 64,
+          width: '100%',
+        },
+        textColor: 'textPrimary',
       };
   }
 }

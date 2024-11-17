@@ -1,10 +1,8 @@
-import { Text, View } from 'react-native';
-
 import { AnimatedFadeEntrance, AnimatedUpDown } from '@animations';
 import { Logo } from '@assets';
 import { ScreenLayout } from '@shared';
 
-import { Button } from '@components';
+import { Box, Button, Text } from '@components';
 
 import { VERSION, WELCOME_TEXT } from './constants';
 import { WelcomeScreenController } from './welcome.controller';
@@ -16,29 +14,42 @@ type WelcomeViewProps = {
 export function WelcomeView({ controller }: WelcomeViewProps) {
   return (
     <ScreenLayout>
-      <View className="px-4 gap-8  items-center justify-center mb-16">
+      <Box
+        paddingHorizontal="sp25"
+        gap="sp20"
+        alignItems="center"
+        justifyContent="center"
+        mb="sp60">
         <AnimatedUpDown>
-          <View className="translate-y-7 rotate-45">
+          <Box
+            style={{
+              transform: [
+                {
+                  translateY: 10,
+                },
+                {
+                  rotate: '45deg',
+                },
+              ],
+            }}>
             <Logo width={100} height={200} />
-          </View>
+          </Box>
         </AnimatedUpDown>
 
-        <View>
+        <Box>
           <AnimatedFadeEntrance entrance="up">
-            <Text className="text-3xl px-2 -tracking-widest font-bold  text-left text-slate-800">
-              {WELCOME_TEXT}
-            </Text>
+            <Text preset="semiBold/32" text={WELCOME_TEXT} />
           </AnimatedFadeEntrance>
-        </View>
-      </View>
-      <View className="px-6 w-full gap-y-4">
-        <View>
+        </Box>
+      </Box>
+      <Box paddingHorizontal="sp25" width={'100%'} rowGap="sp15">
+        <Box>
           <AnimatedFadeEntrance entrance="down">
             <Button text="Login" onPress={controller.redirectToLoginScreen} />
           </AnimatedFadeEntrance>
-        </View>
+        </Box>
 
-        <View>
+        <Box>
           <AnimatedFadeEntrance entrance="down">
             <Button
               text="Register"
@@ -46,11 +57,15 @@ export function WelcomeView({ controller }: WelcomeViewProps) {
               onPress={controller.redirectToSignUpScreen}
             />
           </AnimatedFadeEntrance>
-        </View>
-      </View>
-      <View className="w-full items-center justify-center p-4">
-        <Text className="font-semibold text-base">{VERSION}</Text>
-      </View>
+        </Box>
+      </Box>
+      <Box
+        width={'100%'}
+        alignItems="center"
+        justifyContent="center"
+        padding="sp15">
+        <Text preset="semiBold/16" text={VERSION} />
+      </Box>
     </ScreenLayout>
   );
 }

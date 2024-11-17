@@ -1,9 +1,7 @@
-import { Text, View } from 'react-native';
-
 import { AnimatedFadeEntrance } from '@animations';
 import { For, If } from '@helpers';
 
-import { Button } from '@components';
+import { Box, Button, Text } from '@components';
 
 import { ScreenLayout } from '../ScreenLayout/ScreenLayout';
 
@@ -27,11 +25,11 @@ export function AuthScreenLayout({
     <ScreenLayout
       goBack
       HeaderElement={
-        <Text className="text-5xl font-semibold -tracking-widest">{title}</Text>
+        <Text preset="semiBold/48" letterSpacing={2} text={title ?? ''} />
       }>
-      <View className="w-full" style={{ gap: 10 }}>
+      <Box width={'100%'} style={{ gap: 10 }}>
         {children}
-        <View className="w-full mt-4 mb-2">
+        <Box width={'100%'} mt="sp15" mb="sp3">
           <For
             data={buttonsProps}
             render={(buttonProp, index) => (
@@ -43,20 +41,28 @@ export function AuthScreenLayout({
 
           <If condition={!!actionPrompt}>
             <AnimatedFadeEntrance entrance="down">
-              <View className="w-full items-center justify-center flex-row mt-2">
-                <Text className="font-normal text-base text-slate-400">
-                  {actionPrompt!.message}{' '}
-                </Text>
+              <Box
+                width={'100%'}
+                alignItems="center"
+                justifyContent="center"
+                flexDirection="row"
+                mt="sp7">
+                <Text
+                  preset="medium/16"
+                  color="textSecondary"
+                  text={actionPrompt!.message + ' '}
+                />
+
                 <Button
                   text={actionPrompt!.actionText}
                   variant="transparent"
                   onPress={actionPrompt!.action}
                 />
-              </View>
+              </Box>
             </AnimatedFadeEntrance>
           </If>
-        </View>
-      </View>
+        </Box>
+      </Box>
     </ScreenLayout>
   );
 }
